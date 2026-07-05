@@ -1,0 +1,136 @@
+Development Workflow
+Research
+      ↓
+Explore SDK
+      ↓
+Prototype (experiments/)
+      ↓
+Production Example (examples/)
+      ↓
+Verify Output
+      ↓
+Update notes.md
+      ↓
+Update ROADMAP.md
+      ↓
+Git Commit
+      ↓
+Write Medium Article
+
+
+tensorlake-sandbox-python-examples/
+│
+├── README.md                  # Public landing page and project overview
+├── AGENTS.md                  # Instructions for AI coding assistants (Codex, Copilot, Claude, Cursor)
+├── ROADMAP.md                 # Project roadmap and progress tracker
+├── notes.md                   # Engineering journal (discoveries, experiments, lessons learned)
+├── CONTRIBUTING.md            # Contribution guidelines
+├── CHANGELOG.md               # Project history and release notes
+│
+├── requirements.txt           # Python dependencies
+├── .gitignore                 # Git ignore rules
+├── .env.example               # Sample environment variables
+├── .env                       # Local API key (DO NOT COMMIT)
+│
+├── docs/                      # Documentation resources
+│   │
+│   ├── article_notes/         # Notes used while writing Medium articles
+│   │
+│   ├── diagrams/              # Architecture diagrams
+│   │
+│   ├── outputs/               # Saved terminal outputs
+│   │
+│   └── screenshots/           # Screenshots for GitHub and Medium articles
+│
+├── experiments/               # Temporary exploration scripts (NOT production examples)
+│   │
+│   ├── check_env.py
+│   ├── create_sandbox.py
+│   ├── explore_tensorlake.py
+│   ├── inspect_run.py
+│   ├── inspect_sandbox.py
+│   ├── inspect_url.py
+│   ├── run_commands.py
+│   ├── sandbox_test.py
+│   ├── stateful_sandbox.py
+│   └── test_tensorlake.py
+│
+├── examples/                  # Production-quality examples
+│   │
+│   ├── 01_create_sandbox/
+│   │   ├── main.py            # Example source code
+│   │   ├── README.md          # Example explanation
+│   │   ├── output.txt         # Verified terminal output
+│   │   └── images/            # Screenshots
+│   │
+│   ├── 02_run_commands/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   ├── 03_stateful_filesystem/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   ├── 04_install_packages/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   ├── 05_native_file_api/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   ├── 06_snapshots/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   ├── 07_suspend_resume/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   ├── 08_process_management/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   ├── 09_parallel_sandboxes/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   ├── 10_browser_automation/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   ├── 11_computer_use/
+│   │   ├── main.py
+│   │   ├── README.md
+│   │   ├── output.txt
+│   │   └── images/
+│   │
+│   └── 12_ai_agent_demo/
+│       ├── main.py
+│       ├── README.md
+│       ├── output.txt
+│       └── images/
+│
+└── utils/                     # Shared helper modules
+    │
+    ├── config.py              # Environment variables and configuration
+    ├── logger.py              # Logging utilities
+    └── common.py              # Shared helper functions
