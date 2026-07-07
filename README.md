@@ -1,228 +1,93 @@
-# 🚀 Tensorlake Sandbox Python Examples
+# Tensorlake Sandbox Python Examples
 
-> **A production-ready collection of Python examples demonstrating how to build, explore, and deploy AI applications using Tensorlake Sandboxes.**
-
----
+> A production-ready collection of Python examples demonstrating how to build, explore, and document Tensorlake Sandbox workflows.
 
 ## Overview
 
-Welcome to the **Tensorlake Sandbox Python Examples** repository.
+This repository is a practical engineering guide for learning Tensorlake Sandboxes through verified Python examples.
 
-This repository is a practical engineering guide designed to help developers learn Tensorlake Sandboxes through real-world, executable Python examples.
+Every example in this repository is:
 
-Unlike many tutorials that only demonstrate successful outcomes, this repository follows an **experiment-driven engineering approach** where every feature is explored, verified, documented, and reproduced before it becomes part of the project.
+- Executed successfully
+- Verified against actual SDK behavior
+- Documented with explanations
+- Easy to reproduce
+- Built with engineering best practices
 
-Every example included in this repository is:
+The goal is to create a high-quality open-source resource for developers who want to understand Tensorlake Sandboxes as isolated, stateful execution environments for modern AI applications.
 
-- ✅ Executed successfully
-- ✅ Verified against actual SDK behavior
-- ✅ Documented with explanations
-- ✅ Easy to reproduce
-- ✅ Designed using engineering best practices
+## Quick Start
 
-The goal is to create a high-quality open-source resource that helps AI engineers understand how Tensorlake Sandboxes can be used as secure, isolated, and stateful execution environments for modern AI applications.
+1. Clone the repository.
 
----
+```bash
+git clone https://github.com/<your-username>/tensorlake-sandbox-python-examples.git
+cd tensorlake-sandbox-python-examples
+```
 
-# Why Tensorlake Sandboxes?
+2. Create and activate a virtual environment.
 
-Modern AI systems are no longer simple API calls.
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
 
-Today's AI applications often require the ability to:
+3. Install the required packages.
 
-- Execute Python code
-- Install packages dynamically
-- Process files
-- Run long-running tasks
-- Maintain persistent state
-- Resume interrupted work
-- Execute browser automation
-- Run isolated agent workloads
-- Execute untrusted LLM-generated code safely
+```bash
+pip install tensorlake python-dotenv
+```
 
-Traditional serverless platforms and short-lived containers are not always ideal for these scenarios.
+4. Add your Tensorlake API key to `.env`.
 
-Tensorlake Sandboxes provide persistent and isolated execution environments that make these workflows significantly easier to build.
+```env
+TENSORLAKE_API_KEY=your_api_key
+```
 
----
+5. Run an example.
 
-# Repository Objectives
+```bash
+cd examples/01_create_sandbox
+python main.py
+```
 
-This repository has several goals.
-
-## 1. Learn Through Experimentation
-
-Every feature is explored experimentally instead of relying solely on documentation.
-
-The repository documents:
-
-- API exploration
-- SDK behavior
-- Errors encountered
-- Engineering discoveries
-- Lessons learned
-
----
-
-## 2. Build Production-Quality Examples
-
-Every example should demonstrate good engineering practices, including:
-
-- Meaningful comments
-- Error handling
-- Logging
-- Type hints where appropriate
-- Clean code
-- Reusable structure
-
----
-
-## 3. Document Everything
-
-Knowledge should never be lost.
-
-Every experiment records:
-
-- Goal
-- Code
-- Output
-- Errors
-- Fixes
-- Lessons learned
-- Best practices
-
----
-
-## 4. Create Reusable Learning Resources
-
-Readers should be able to clone the repository and immediately begin learning through practical examples.
-
----
-
-## 5. Support a Medium Article Series
-
-This repository serves as the companion codebase for an in-depth Medium series covering Tensorlake Sandboxes and AI Engineering.
-
-Every article will reference working examples from this repository.
-
----
-
-## 6. Build an Open Source Reference
-
-The long-term vision is to create a practical reference repository for developers building AI systems on Tensorlake.
-
----
-
-# Who Is This Repository For?
-
-This project is intended for:
-
-- AI Engineers
-- Machine Learning Engineers
-- LLM Engineers
-- Agent Developers
-- Python Developers
-- Software Engineers
-- Researchers
-- Students
-- Anyone interested in AI infrastructure
-
----
-
-# Repository Principles
-
-This repository follows a few simple principles.
-
-- Learn by building.
-- Verify every API before using it.
-- Never assume SDK behavior.
-- Prefer experimentation over speculation.
-- Record every discovery.
-- Keep examples independent.
-- Produce reproducible results.
-- Write production-quality code.
-- Document engineering decisions.
-- Share practical knowledge with the community.
-
----
-
-# Features
-
-This repository includes:
-
-- Production-ready Python examples
-- Hands-on Tensorlake Sandbox exploration
-- Engineering notebook documenting discoveries
-- Verified terminal outputs
-- Screenshots
-- Example-specific documentation
-- AI assistant guidance (Codex, Copilot, Claude)
-- Medium article references
-- GitHub-friendly project structure
-- Reproducible experiments
-- Engineering best practices
-- Clean project organization
-
----
-
-# Repository Structure
+## Repository Structure
 
 ```
 tensorlake-sandbox-python-examples/
-│
-├── README.md                 # Project overview and documentation
-├── AGENTS.md                 # Instructions for AI coding assistants
-├── ROADMAP.md                # Project roadmap and progress tracking
-├── notes.md                  # Engineering notebook
-├── CONTRIBUTING.md           # Contribution guidelines
-├── CHANGELOG.md              # Project changelog
-├── LICENSE                   # MIT License
-├── .gitignore
-├── requirements.txt
-├── .env.example
-│
-├── docs/
-│   ├── article_notes/
-│   ├── diagrams/
-│   ├── outputs/
-│   └── screenshots/
-│
-├── examples/
-│   ├── 01_create_sandbox/
-│   ├── 02_run_commands/
-│   ├── 03_stateful_filesystem/
-│   ├── 04_install_packages/
-│   ├── 05_native_file_api/
-│   ├── 06_snapshots/
-│   ├── 07_suspend_resume/
-│   ├── 08_process_management/
-│   ├── 09_parallel_sandboxes/
-│   ├── 10_browser_automation/
-│   ├── 11_computer_use/
-│   └── 12_ai_agent_demo/
-│
-├── experiments/
-│   ├── check_env.py
-│   ├── explore_tensorlake.py
-│   ├── inspect_run.py
-│   ├── inspect_sandbox.py
-│   ├── inspect_url.py
-│   ├── sandbox_test.py
-│   └── test_tensorlake.py
-│
-└── utils/
-    ├── config.py
-    ├── helper.py
-    └── logger.py
+|-- README.md
+|-- .env.example
+|-- .gitignore
+|-- docs/
+|   |-- AGENTS.md
+|   |-- CHANGELOG.md
+|   |-- CONTRIBUTING.md
+|   |-- example_completion_checklist.md
+|   |-- notes.md
+|   `-- ROADMAP.md
+|-- examples/
+|   |-- 01_create_sandbox/
+|   |-- 02_run_commands/
+|   |-- 03_stateful_filesystem/
+|   |-- 04_install_packages/
+|   |-- 05_native_file_api/
+|   |-- 06_snapshots/
+|   |-- 07_suspend_resume/
+|   |-- 08_process_management/
+|   |-- 09_parallel_sandboxes/
+|   |-- 10_browser_automation/
+|   |-- 11_computer_use/
+|   `-- 12_ai_agent_demo/
+|-- experiments/
+`-- utils/
+    `-- common.py
 ```
 
----
-
-# Learning Roadmap
+## Learning Roadmap
 
 The repository follows a progressive learning path, starting with the fundamentals and gradually moving toward advanced AI agent workflows.
 
-## Phase 1 — Fundamentals
+### Phase 1 - Fundamentals
 
 - Environment Setup
 - Creating a Sandbox
@@ -230,9 +95,7 @@ The repository follows a progressive learning path, starting with the fundamenta
 - Understanding the Sandbox Lifecycle
 - Stateful Filesystem
 
----
-
-## Phase 2 — Working with Sandboxes
+### Phase 2 - Working with Sandboxes
 
 - Installing Packages
 - Native File Operations
@@ -240,9 +103,7 @@ The repository follows a progressive learning path, starting with the fundamenta
 - Reading Files
 - Managing Directories
 
----
-
-## Phase 3 — Advanced Sandbox Features
+### Phase 3 - Advanced Sandbox Features
 
 - Snapshots
 - Checkpoints
@@ -250,9 +111,7 @@ The repository follows a progressive learning path, starting with the fundamenta
 - Process Management
 - Long-running Applications
 
----
-
-## Phase 4 — AI Workloads
+### Phase 4 - AI Workloads
 
 - Parallel Sandboxes
 - Browser Automation
@@ -260,9 +119,7 @@ The repository follows a progressive learning path, starting with the fundamenta
 - AI Agents
 - Multi-Agent Systems
 
----
-
-## Phase 5 — Production Patterns
+### Phase 5 - Production Patterns
 
 - Secure Code Execution
 - Background Workers
@@ -270,153 +127,34 @@ The repository follows a progressive learning path, starting with the fundamenta
 - Deployment Patterns
 - Best Practices
 
----
-
-# Example Index
+## Example Index
 
 | Example | Description | Status |
 |----------|-------------|--------|
-| 01 | Create Your First Sandbox | ✅ Completed |
-| 02 | Execute Commands | ✅ Completed |
-| 03 | Stateful Filesystem | ✅ Completed |
-| 04 | Installing Python Packages | 🚧 In Progress |
-| 05 | Native File APIs | 📅 Planned |
-| 06 | Snapshots & Checkpoints | 📅 Planned |
-| 07 | Suspend & Resume | 📅 Planned |
-| 08 | Process Management | 📅 Planned |
-| 09 | Parallel Sandboxes | 📅 Planned |
-| 10 | Browser Automation | 📅 Planned |
-| 11 | Computer Use | 📅 Planned |
-| 12 | AI Agent Demo | 📅 Planned |
+| 01 | Create Your First Sandbox | Completed |
+| 02 | Execute Commands | Completed |
+| 03 | Stateful Filesystem | Completed |
+| 04 | Installing Python Packages | Completed |
+| 05 | Native File APIs | Completed |
+| 06 | Snapshots & Checkpoints | Completed |
+| 07 | Suspend & Resume | Completed |
+| 08 | Process Management | Completed |
+| 09 | Parallel Sandboxes | Completed |
+| 10 | Browser Automation | Completed |
+| 11 | Computer Use | Completed |
+| 12 | AI Agent Demo | Completed |
 
----
+## Running Examples
 
-# Engineering Workflow
+Each example is independent.
 
-Every example in this repository follows the same engineering workflow.
-
-```
-Research
-      │
-      ▼
-Explore SDK
-      │
-      ▼
-Inspect APIs
-      │
-      ▼
-Write Code
-      │
-      ▼
-Execute
-      │
-      ▼
-Verify Output
-      │
-      ▼
-Handle Errors
-      │
-      ▼
-Improve Code
-      │
-      ▼
-Document
-      │
-      ▼
-Commit to Git
-      │
-      ▼
-Publish
-```
-
-This ensures every example is verified before becoming part of the repository.
-
----
-
-# Prerequisites
-
-Before using this repository, you should have:
-
-- Python 3.12 or later
-- A Tensorlake account
-- A Tensorlake API key
-- Git
-- Visual Studio Code (recommended)
-- Basic Python knowledge
-
----
-
-# Installation
-
-Clone the repository.
-
-```bash
-git clone https://github.com/<your-username>/tensorlake-sandbox-python-examples.git
-
-cd tensorlake-sandbox-python-examples
-```
-
----
-
-Create a virtual environment.
-
-```bash
-python -m venv venv
-```
-
----
-
-Activate the virtual environment.
-
-### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-source venv/bin/activate
-```
-
----
-
-Install the required packages.
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# Environment Setup
-
-Create a `.env` file in the project root.
-
-```env
-TENSORLAKE_API_KEY=your_api_key
-```
-
-Never commit your `.env` file to Git.
-
-Instead, use the provided `.env.example` as a template.
-
----
-
-# Running Examples
-
-Each example is completely independent.
-
-Navigate to the example folder.
-
-Example:
+Navigate to the example folder:
 
 ```bash
 cd examples/01_create_sandbox
 ```
 
-Run the example.
+Run the example:
 
 ```bash
 python main.py
@@ -426,40 +164,36 @@ Each example folder contains:
 
 ```
 Example Folder/
-
-├── main.py
-├── README.md
-├── output.txt
-└── images/
+|-- main.py
+|-- README.md
+|-- output.txt
+`-- images/
 ```
 
-- **main.py** – Working source code.
-- **README.md** – Explanation of the example.
-- **output.txt** – Actual terminal output.
-- **images/** – Screenshots and diagrams, where applicable.
+- `main.py` - Working source code.
+- `README.md` - Explanation of the example.
+- `output.txt` - Actual terminal output.
+- `images/` - Screenshots and diagrams, where applicable.
 
----
+## Documentation
 
-# Documentation
-
-This repository contains several supporting documents to make learning and contributing easier.
+This repository contains supporting documents to make learning and contributing easier.
 
 | Document | Description |
 |----------|-------------|
-| **README.md** | Project overview and getting started guide |
-| **AGENTS.md** | Instructions for AI coding assistants (Codex, Copilot, Claude, Cursor) |
-| **ROADMAP.md** | Project roadmap and progress tracking |
-| **notes.md** | Engineering notebook documenting experiments and discoveries |
-| **CONTRIBUTING.md** | Contribution guidelines |
-| **CHANGELOG.md** | Project release history |
+| `README.md` | Project overview and getting started guide |
+| `docs/AGENTS.md` | Instructions for AI coding assistants |
+| `docs/ROADMAP.md` | Project roadmap and progress tracking |
+| `docs/notes.md` | Engineering notebook documenting experiments and discoveries |
+| `docs/CONTRIBUTING.md` | Contribution guidelines |
+| `docs/CHANGELOG.md` | Project release history |
+| `docs/example_completion_checklist.md` | Completion checklist used for example reviews |
 
----
-
-# Engineering Standards
+## Engineering Standards
 
 Every example in this repository follows a common set of engineering standards.
 
-## Code Quality
+### Code Quality
 
 - Production-quality Python code
 - Meaningful variable names
@@ -469,9 +203,7 @@ Every example in this repository follows a common set of engineering standards.
 - Consistent formatting
 - PEP 8 compliant
 
----
-
-## Verification
+### Verification
 
 Every example must be:
 
@@ -482,9 +214,7 @@ Every example must be:
 
 Nothing is added based on assumptions.
 
----
-
-## Error Handling
+### Error Handling
 
 Examples should gracefully handle:
 
@@ -497,9 +227,7 @@ Examples should gracefully handle:
 
 Errors are treated as learning opportunities and documented whenever they reveal useful SDK behavior.
 
----
-
-## Documentation
+### Documentation
 
 Each example includes:
 
@@ -510,11 +238,9 @@ Each example includes:
 - Expected output
 - Explanation
 - Lessons learned
-- References (where applicable)
+- References, where applicable
 
----
-
-# AI Assistant Support
+## AI Assistant Support
 
 This repository is designed to work well with AI coding assistants, including:
 
@@ -523,7 +249,7 @@ This repository is designed to work well with AI coding assistants, including:
 - Claude Code
 - Cursor
 
-The **AGENTS.md** file contains project-specific instructions that help AI assistants:
+The `docs/AGENTS.md` file contains project-specific instructions that help AI assistants:
 
 - Understand the repository structure
 - Continue experiments without repeating work
@@ -531,63 +257,7 @@ The **AGENTS.md** file contains project-specific instructions that help AI assis
 - Verify APIs before using them
 - Update documentation as the project evolves
 
----
-
-# Engineering Philosophy
-
-This project follows a simple philosophy:
-
-> **Research → Build → Verify → Document → Share**
-
-The emphasis is on understanding how Tensorlake works through experimentation rather than relying solely on documentation.
-
-Every discovery, limitation, and best practice is recorded so future readers can learn from real engineering experiences.
-
----
-
-# Repository Roadmap
-
-The long-term vision for this repository includes:
-
-## Phase 1 — Foundations
-
-- Environment setup
-- Sandbox creation
-- Command execution
-- Stateful filesystem
-
-## Phase 2 — Sandbox Capabilities
-
-- Package installation
-- Native file operations
-- File management
-- Process management
-
-## Phase 3 — Advanced Features
-
-- Snapshots
-- Checkpoints
-- Suspend and resume
-- Long-running processes
-- Parallel execution
-
-## Phase 4 — AI Workloads
-
-- Browser automation
-- Computer-use agents
-- AI agent architectures
-- Multi-agent systems
-
-## Phase 5 — Production Patterns
-
-- Secure code execution
-- Background workers
-- Deployment strategies
-- Best practices
-
----
-
-# Planned Medium Article Series
+## Planned Medium Article Series
 
 This repository will support a technical article series covering topics such as:
 
@@ -606,9 +276,7 @@ This repository will support a technical article series covering topics such as:
 
 Each article will reference the corresponding example folder from this repository.
 
----
-
-# Contributing
+## Contributing
 
 Contributions are welcome.
 
@@ -622,64 +290,44 @@ If you discover:
 
 please feel free to open an issue or submit a pull request.
 
-Please read **CONTRIBUTING.md** before contributing.
+Please read `docs/CONTRIBUTING.md` before contributing.
 
----
+## Acknowledgements
 
-# License
-
-This project is licensed under the **MIT License**.
-
-See the **LICENSE** file for more information.
-
----
-
-# Acknowledgements
-
-Special thanks to the **Tensorlake Engineering Team** for providing access to the platform and continuously improving the developer experience.
+Special thanks to the Tensorlake Engineering Team for providing access to the platform and continuously improving the developer experience.
 
 This repository is based entirely on hands-on experimentation and aims to help the AI engineering community learn Tensorlake through practical, reproducible examples.
 
----
+## Author
 
-# Author
-
-## Raj Kumar
+### Raj Kumar
 
 Engineering Manager | AI/ML Engineer | Generative AI Practitioner
 
 Passionate about building practical AI systems, creating educational content, and sharing engineering knowledge with the developer community.
 
----
+## Connect
 
-# Connect
+- GitHub
+- Medium
+- LinkedIn
 
-- GitHub *(Coming Soon)*
-- Medium *(Article series coming soon)*
-- LinkedIn *(Profile link to be added)*
-
----
-
-# Support the Project
+## Support the Project
 
 If you find this repository useful:
 
-- ⭐ Star the repository
-- 🍴 Fork the repository
-- 📝 Share it with others
-- 💬 Provide feedback
-- 🚀 Follow the accompanying Medium article series
-
-Your support helps improve the project and encourages the creation of more practical AI engineering content.
-
----
+- Star the repository
+- Fork the repository
+- Share it with others
+- Provide feedback
+- Follow the accompanying Medium article series
 
 ## Final Thoughts
 
 The goal of this repository is not simply to demonstrate APIs.
 
-It is to document a real engineering journey—one experiment at a time.
+It is to document a real engineering journey, one experiment at a time.
 
 By combining verified examples, engineering notes, and practical articles, this project aims to become a valuable learning resource for developers building modern AI applications with Tensorlake Sandboxes.
 
-Happy Learning! 🚀
+Happy Learning!

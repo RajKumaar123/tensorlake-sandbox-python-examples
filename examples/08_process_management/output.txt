@@ -1,0 +1,20 @@
+Creating Tensorlake sandbox...
+Sandbox ID : n7f4k62q2txpedpolpbs7
+Status     : SandboxStatus.RUNNING
+
+Starting process...
+----------------------------------------
+Trace ID  : abeba5b754722d10dd7d49ad249db2c5
+Value     : ProcessInfo(handle=1, pid=551, status=<ProcessStatus.RUNNING: 'running'>, exit_code=None, signal=None, stdin_writable=False, command='sh', args=['-c', 'sleep 60'], started_at=datetime.datetime(2026, 7, 7, 6, 43, 44, 675000, tzinfo=datetime.timezone.utc), ended_at=None, managed=ManagedProcessInfo(id='example-08-sleep', name='example-08-sleep', status=<ManagedProcessStatus.RUNNING: 'running'>, restart_count=0, restart=RestartPolicyConfig(policy=<RestartPolicy.ON_FAILURE: 'on_failure'>, max_restarts=None, initial_backoff_ms=500, max_backoff_ms=30000), health_check=None, health_status=<ManagedProcessHealthStatus.DISABLED: 'disabled'>, consecutive_health_failures=0, last_exit=None, last_error=None, next_restart_at=None))
+
+Listing processes...
+----------------------------------------
+- pid=551 name=N/A managed_name=example-08-sleep
+
+Killing process...
+----------------------------------------
+Trace ID  : 828014448803ec3b9f963a328786d379
+Value     : None
+
+Terminating sandbox...
+Sandbox terminated successfully.

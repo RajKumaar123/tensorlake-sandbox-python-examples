@@ -1,0 +1,18 @@
+Creating Tensorlake sandbox...
+Sandbox ID : 22gltbtw9r0xw8c3ikkrz
+Status     : SandboxStatus.RUNNING
+
+Creating file...
+Exit Code : 0
+STDOUT    : ''
+STDERR    : ''
+
+Reading file...
+Exit Code : 0
+STDOUT    : 'Hello Tensorlake!'
+STDERR    : ''
+
+Listing /tmp...
+total 8
+-rw-r--r-- 1 tl-user tl-user   18 Jul  5 14:24 hello.txt
+drwxr-xr-x 3 root    root    4096 Jul  1 15:24 node-compile-cache

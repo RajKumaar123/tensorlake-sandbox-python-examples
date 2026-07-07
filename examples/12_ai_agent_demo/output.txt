@@ -1,0 +1,19 @@
+Creating Tensorlake sandbox...
+Sandbox ID : res9lsh7q2cu5jz8mz9yq
+Status     : SandboxStatus.RUNNING
+
+Creating agent session...
+----------------------------------------
+Trace ID   : 35a05ee562b7de3cc0fb4f5520603699
+Session ID : WyPgLhXe79eCFRmGDSjaq
+Token      : 27bb179d1c2abc07b7d0295f46125b32356248d2e83e0586106b4bdcc9b1e40b
+
+Running agent-style action...
+----------------------------------------
+Trace ID  : b6caa5aac2ff36e17958e92ff4c3f570
+Exit Code : 0
+STDOUT    : 'plan -> execute -> verify'
+STDERR    : ''
+
+Terminating sandbox...
+Sandbox terminated successfully.

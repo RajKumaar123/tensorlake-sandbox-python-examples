@@ -1,0 +1,26 @@
+Creating Tensorlake sandbox...
+Sandbox ID : wghv2yzguizr4ipfjst1j
+Status     : SandboxStatus.RUNNING
+
+Creating snapshot...
+----------------------------------------
+Snapshot ID : g76ef5wfpfjrfexpvvlpc
+Name        : N/A
+Status      : SnapshotStatus.COMPLETED
+
+Listing snapshots...
+----------------------------------------
+- g76ef5wfpfjrfexpvvlpc
+
+Fetching snapshot...
+----------------------------------------
+Snapshot ID : g76ef5wfpfjrfexpvvlpc
+Name        : N/A
+Status      : SnapshotStatus.COMPLETED
+
+Deleting snapshot...
+----------------------------------------
+Deleted snapshot g76ef5wfpfjrfexpvvlpc
+
+Terminating sandbox...
+Sandbox terminated successfully.

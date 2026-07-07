@@ -1,0 +1,28 @@
+Creating Tensorlake sandbox...
+Sandbox ID : gfrzmqh39yngcjotvhrih
+Status     : SandboxStatus.RUNNING
+
+Writing file...
+----------------------------------------
+Trace ID  : 457388b881246244129bf02f555a5308
+Value     : None
+
+Reading file...
+----------------------------------------
+Trace ID  : 7bba9235aa19c5a4398aa860ce97482e
+Value     : b'Hello from Tensorlake native file APIs!'
+
+Listing /tmp...
+----------------------------------------
+Trace ID  : 56852485c6bb860e168ea2e0e931f336
+path=/tmp
+- node-compile-cache (dir)
+- native_example.txt (file)
+
+Deleting file...
+----------------------------------------
+Trace ID  : 042bb07f7808d34ee908e891aaf16c72
+Value     : None
+
+Terminating sandbox...
+Sandbox terminated successfully.

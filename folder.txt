@@ -17,6 +17,31 @@ Git Commit
       ↓
 Write Medium Article
 
+tensorlake-sandbox-python-examples/
+│
+├── README.md                 # GitHub landing page (keep ONLY this here)
+├── .env
+├── .env.example
+├── .gitignore
+├── requirements.txt
+│
+├── docs/
+│   ├── AGENTS.md
+│   ├── ROADMAP.md
+│   ├── notes.md
+│   ├── CONTRIBUTING.md
+│   ├── CHANGELOG.md
+│   ├── example_completion_checklist.md
+│   │
+│   ├── article_notes/
+│   ├── diagrams/
+│   ├── outputs/
+│   └── screenshots/
+│
+├── experiments/
+├── examples/
+└── utils/
+
 
 tensorlake-sandbox-python-examples/
 │

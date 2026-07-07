@@ -1,0 +1,12 @@
+Creating Tensorlake sandbox...
+Sandbox ID : n6jkuxrpwrabp0gaka2nd
+Status     : SandboxStatus.RUNNING
+
+Creating PTY session...
+----------------------------------------
+Trace ID   : 0a78da9f29ceab1d2b80066f0867dd6b
+Session ID : 6IDmsu83n-35HZ03fKPQZ
+Token      : e28771b473b0f25e3a119dd19a92fe8a54dd40f7f0408395c8aea67067d04713
+
+Terminating sandbox...
+Sandbox terminated successfully.

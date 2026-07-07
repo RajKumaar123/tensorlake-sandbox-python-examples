@@ -1,0 +1,13 @@
+Creating Tensorlake sandbox...
+Sandbox ID : qzys0wcmuxoz9g0m46i03
+Status     : SandboxStatus.RUNNING
+
+Connecting to desktop...
+----------------------------------------
+Port      : 5901
+Shared    : True
+Password  : None
+Note      : connect_desktop() is the verified Tensorlake primitive for computer-use workflows.
+
+Terminating sandbox...
+Sandbox terminated successfully.

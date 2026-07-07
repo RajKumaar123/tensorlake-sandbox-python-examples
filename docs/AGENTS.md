@@ -369,6 +369,23 @@ Never silently ignore exceptions.
 
 ---
 
+# Sandbox Lifecycle Rule
+
+Temporary sandboxes must always be terminated after successful execution unless the objective of the example is to demonstrate sandbox persistence.
+
+Persistent examples, including:
+
+- Stateful Filesystem
+- Snapshots
+- Suspend/Resume
+- Long-running Processes
+
+may intentionally keep the sandbox alive until the experiment is complete.
+
+Always document the reason when a sandbox is intentionally left running.
+
+---
+
 # Logging
 
 Use informative logging.
