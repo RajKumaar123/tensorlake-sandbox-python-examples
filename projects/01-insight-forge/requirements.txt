@@ -1,0 +1,4 @@
+tensorlake
+python-dotenv
+pydantic
+rich
