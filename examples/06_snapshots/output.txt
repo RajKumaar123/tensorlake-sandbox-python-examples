@@ -1,26 +1,29 @@
-Creating Tensorlake sandbox...
-Sandbox ID : wghv2yzguizr4ipfjst1j
-Status     : SandboxStatus.RUNNING
+Creating TensorLake sandbox...
+Sandbox created successfully.
 
-Creating snapshot...
+Sandbox Details
 ----------------------------------------
-Snapshot ID : g76ef5wfpfjrfexpvvlpc
+Sandbox ID     : owj55tdjpyifr5ffyu6sq
+Sandbox Name   : tensorlake-example-06-snapshots
+Sandbox Status : running
+----------------------------------------
+
+Step 1: Creating a snapshot...
+Snapshot ID : 2ab1byw4iyaijln7wcknp
 Name        : N/A
-Status      : SnapshotStatus.COMPLETED
+Status      : local_ready
 
-Listing snapshots...
-----------------------------------------
-- g76ef5wfpfjrfexpvvlpc
+Step 2: Listing snapshots...
+Snapshots Found : 1
+- 2ab1byw4iyaijln7wcknp
 
-Fetching snapshot...
-----------------------------------------
-Snapshot ID : g76ef5wfpfjrfexpvvlpc
+Step 3: Retrieving snapshot...
+Snapshot ID : 2ab1byw4iyaijln7wcknp
 Name        : N/A
-Status      : SnapshotStatus.COMPLETED
+Status      : completed
 
-Deleting snapshot...
-----------------------------------------
-Deleted snapshot g76ef5wfpfjrfexpvvlpc
+Step 4: Deleting snapshot...
+Snapshot deleted successfully.
 
-Terminating sandbox...
+Cleaning up sandbox...
 Sandbox terminated successfully.

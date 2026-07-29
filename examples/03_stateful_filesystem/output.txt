@@ -1,18 +1,31 @@
-Creating Tensorlake sandbox...
-Sandbox ID : 22gltbtw9r0xw8c3ikkrz
-Status     : SandboxStatus.RUNNING
+Creating TensorLake sandbox...
+Sandbox created successfully.
 
-Creating file...
+Sandbox Details
+----------------------------------------
+Sandbox ID     : ny8jzth03eg7i0gocwr0b
+Sandbox Name   : tensorlake-example-03-stateful-filesystem
+Sandbox Status : running
+----------------------------------------
+
+Step 1: Creating a file...
 Exit Code : 0
-STDOUT    : ''
-STDERR    : ''
+STDOUT    : <empty>
+STDERR    : <empty>
 
-Reading file...
+Step 2: Reading the file...
 Exit Code : 0
-STDOUT    : 'Hello Tensorlake!'
-STDERR    : ''
+STDOUT    : Hello TensorLake!
+STDERR    : <empty>
 
-Listing /tmp...
+Step 3: Listing the /tmp directory...
+Exit Code : 0
+
+Directory Contents
+----------------------------------------
 total 8
--rw-r--r-- 1 tl-user tl-user   18 Jul  5 14:24 hello.txt
-drwxr-xr-x 3 root    root    4096 Jul  1 15:24 node-compile-cache
+-rw-r--r-- 1 tl-user tl-user   18 Jul 29 16:16 hello.txt
+drwxr-xr-x 3 root    root    4096 Jul 17 17:18 node-compile-cache
+
+Cleaning up sandbox...
+Sandbox terminated successfully.

@@ -1,28 +1,39 @@
-Creating Tensorlake sandbox...
-Sandbox ID : gfrzmqh39yngcjotvhrih
-Status     : SandboxStatus.RUNNING
+Creating TensorLake sandbox...
+Sandbox created successfully.
 
-Writing file...
+Sandbox Details
 ----------------------------------------
-Trace ID  : 457388b881246244129bf02f555a5308
-Value     : None
-
-Reading file...
+Sandbox ID     : kxhe91zuscw80rrz5hsma
+Sandbox Name   : tensorlake-example-05-native-file-api
+Sandbox Status : running
 ----------------------------------------
-Trace ID  : 7bba9235aa19c5a4398aa860ce97482e
-Value     : b'Hello from Tensorlake native file APIs!'
 
-Listing /tmp...
+Step 1: Writing a file...
+Trace ID : b0c5b89632b018dbddf4a33eb3f2c755
+Result   : None
+
+Step 2: Reading the file...
+Trace ID : 7d274225a3875a7e591b167bc30b03f1
+Content  : Hello from TensorLake Native File API!
+
+Step 3: Listing the directory...
+Trace ID : e374a641ce62580b148412fd8bbe7185
+
+Directory Contents
 ----------------------------------------
-Trace ID  : 56852485c6bb860e168ea2e0e931f336
-path=/tmp
-- node-compile-cache (dir)
-- native_example.txt (file)
+Path : /tmp
+- node-compile-cache (Directory)
+- native_example.txt (File)
 
-Deleting file...
+Step 4: Deleting the file...
+Trace ID : 58f6ff0552342e628a6e15fed487d386
+Result   : None
+
+Step 5: Verifying deletion...
+Directory Contents
 ----------------------------------------
-Trace ID  : 042bb07f7808d34ee908e891aaf16c72
-Value     : None
+Path : /tmp
+- node-compile-cache (Directory)
 
-Terminating sandbox...
+Cleaning up sandbox...
 Sandbox terminated successfully.

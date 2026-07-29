@@ -1,88 +1,181 @@
 """
-Start, list, and kill a process inside a Tensorlake sandbox.
+Manage background processes inside a TensorLake sandbox.
 
-This example demonstrates process management by launching a long-lived command,
-listing the running processes, and then terminating the target process.
+This example demonstrates how to start, list, and terminate a managed
+background process using the TensorLake Python SDK.
 """
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
-from typing import Any
 
+from dotenv import load_dotenv
+from tensorlake.sandbox import Sandbox
+
+# Add the project root to the Python path so shared utilities
+# can be imported when running this example directly.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from utils.common import cleanup_sandbox, create_sandbox, load_api_key, print_section
+from utils.output_logger import OutputLogger
+
+# A descriptive name makes it easier to identify this sandbox
+# in the TensorLake dashboard and logs.
+SANDBOX_NAME = "tensorlake-example-08-process-management"
+PROCESS_NAME = "example-08-sleep"
 
 
-def find_process(processes: Any, name: str) -> Any:
-    """Return the first process whose name matches the requested value."""
+def find_process(processes, process_name):
+    """Return the managed process matching the requested name."""
     for process in processes:
         managed = getattr(process, "managed", None)
-        managed_name = getattr(managed, "name", None) if managed else None
-        if getattr(process, "name", None) == name or managed_name == name:
+
+        if managed and getattr(managed, "name", None) == process_name:
             return process
+
     return None
 
 
 def main() -> None:
-    """Create a sandbox, start a process, inspect it, and kill it."""
-    print("Creating Tensorlake sandbox...")
+    """Demonstrate process management inside a TensorLake sandbox."""
+
+    # Initialize the logger. It prints to the console and
+    # automatically creates/updates output.txt.
+    logger = OutputLogger(__file__)
+    log = logger.log
+
+    log("Creating TensorLake sandbox...")
+
+    # Load environment variables from the .env file.
+    load_dotenv()
+
+    # Read the TensorLake API key.
+    api_key = os.getenv("TENSORLAKE_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "TENSORLAKE_API_KEY is missing. Add it to your .env file."
+        )
 
     sandbox = None
-    process_name = "example-08-sleep"
-    try:
-        api_key = load_api_key()
-        sandbox = create_sandbox(api_key)
-        print(f"Sandbox ID : {sandbox.sandbox_id}")
-        print(f"Status     : {sandbox.status}")
 
-        print_section("Starting process...")
+    try:
+        # Provision a new TensorLake sandbox.
+        sandbox = Sandbox.create(
+            api_key=api_key,
+            name=SANDBOX_NAME,
+        )
+
+        log("Sandbox created successfully.")
+        log()
+
+        status = sandbox.status
+        if callable(status):
+            status = status()
+
+        status = getattr(status, "value", getattr(status, "name", status))
+
+        log("Sandbox Details")
+        log("-" * 40)
+        log(f"Sandbox ID     : {sandbox.sandbox_id}")
+        log(f"Sandbox Name   : {sandbox.name}")
+        log(f"Sandbox Status : {status}")
+        log("-" * 40)
+
+        #
+        # Start a managed background process.
+        #
+
+        log()
+        log("Starting background process...")
+
         start_result = sandbox.start_process(
             command="sh",
             args=["-c", "sleep 60"],
-            name=process_name,
+            name=PROCESS_NAME,
         )
-        print(f"Trace ID  : {start_result.trace_id}")
-        print(f"Value     : {start_result.value!r}")
 
-        print_section("Listing processes...")
+        log(f"Trace ID : {start_result.trace_id}")
+        log(f"PID      : {start_result.value.pid}")
+        log(f"Status   : {start_result.value.status.value}")
+
+        #
+        # List running processes.
+        #
+
+        log()
+        log("Listing processes...")
+
         processes = list(sandbox.list_processes())
+
         for process in processes:
             managed = getattr(process, "managed", None)
-            managed_name = getattr(managed, "name", "N/A") if managed else "N/A"
-            print(
-                f"- pid={getattr(process, 'pid', 'N/A')} "
-                f"name={getattr(process, 'name', 'N/A')} "
-                f"managed_name={managed_name}"
+
+            managed_name = (
+                getattr(managed, "name", "N/A")
+                if managed
+                else "N/A"
             )
 
-        target = find_process(processes, process_name)
-        if target is None:
-            raise SystemExit(f"Could not find process named {process_name}.")
+            managed_status = (
+                getattr(getattr(managed, "status", None), "value", "N/A")
+                if managed
+                else "N/A"
+            )
 
-        pid = getattr(target, "pid", None)
-        if pid is None:
-            raise SystemExit("Process metadata did not include a pid.")
+            command = getattr(process, "command", "N/A")
+            args = getattr(process, "args", [])
 
-        print_section("Killing process...")
-        kill_result = sandbox.kill_process(pid)
-        print(f"Trace ID  : {kill_result.trace_id}")
-        print(f"Value     : {kill_result.value!r}")
-    except ValueError as exc:
-        print(f"Configuration error: {exc}")
-        raise SystemExit(1) from exc
+            status = getattr(process, "status", "N/A")
+            status = getattr(status, "value", getattr(status, "name", status))
+
+            log("-" * 40)
+            log(f"PID            : {process.pid}")
+            log(f"Command        : {command}")
+            log(f"Arguments      : {args}")
+            log(f"Status         : {status}")
+            log(f"Managed Name   : {managed_name}")
+            log(f"Managed Status : {managed_status}")
+
+        #
+        # Find the managed process.
+        #
+
+        process = find_process(processes, PROCESS_NAME)
+
+        if process is None:
+            raise RuntimeError(
+                f"Unable to locate process '{PROCESS_NAME}'."
+            )
+
+        #
+        # Kill the process.
+        #
+
+        log()
+        log("Terminating process...")
+
+        kill_result = sandbox.kill_process(process.pid)
+
+        log(f"Trace ID : {kill_result.trace_id}")
+        log(f"Result   : {kill_result.value}")
+
     except Exception as exc:
-        print(f"Failed to complete example: {exc}")
-        raise SystemExit(1) from exc
+        log(f"Process management failed: {exc}")
+        raise
+
     finally:
-        # Temporary process-management examples should clean up their sandbox.
-        print()
-        print("Terminating sandbox...")
-        cleanup_sandbox(sandbox)
+        # Always terminate the sandbox after the demonstration.
+        if sandbox is not None:
+            log()
+            log("Cleaning up sandbox...")
+            sandbox.terminate()
+            log("Sandbox terminated successfully.")
+
+        # Save the console output to output.txt.
+        logger.save()
 
 
 if __name__ == "__main__":

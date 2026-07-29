@@ -1,81 +1,173 @@
 """
-Use Tensorlake's native file APIs to write, read, list, and delete a file.
+Use TensorLake's native file APIs to write, read, list, and delete a file.
 
-This example uses the SDK file methods directly instead of shell commands, and
-it cleans up the temporary sandbox after the workflow completes.
+This example demonstrates how to manage files inside a TensorLake sandbox
+using the SDK's native file APIs without relying on shell commands.
 """
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
-from typing import Any
 
+from dotenv import load_dotenv
+from tensorlake.sandbox import Sandbox
+
+# Add the project root to the Python path so shared utilities
+# can be imported when running this example directly.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from utils.common import (
-    cleanup_sandbox,
-    create_sandbox,
-    load_api_key,
-    print_section,
-)
+from utils.output_logger import OutputLogger
+
+# A descriptive name makes it easier to identify this sandbox
+# in the TensorLake dashboard and logs.
+SANDBOX_NAME = "tensorlake-example-05-native-file-api"
+
+FILE_PATH = "/tmp/native_example.txt"
+FILE_CONTENT = b"Hello from TensorLake Native File API!"
 
 
-def describe_directory_entries(listing: Any) -> str:
+def format_directory_listing(listing) -> str:
     """Format directory entries into a readable text block."""
-    lines = [f"path={listing.path}"]
+    lines = [f"Path : {listing.path}"]
+
+    if not listing.entries:
+        lines.append("<empty>")
+        return "\n".join(lines)
+
     for entry in listing.entries:
-        entry_type = "dir" if entry.is_dir else "file"
+        entry_type = "Directory" if entry.is_dir else "File"
         lines.append(f"- {entry.name} ({entry_type})")
+
     return "\n".join(lines)
 
 
 def main() -> None:
-    """Create a sandbox and exercise the native file APIs."""
-    print("Creating Tensorlake sandbox...")
+    """Demonstrate the TensorLake Native File API."""
+
+    logger = OutputLogger(__file__)
+    log = logger.log
+
+    log("Creating TensorLake sandbox...")
+
+    load_dotenv()
+
+    api_key = os.getenv("TENSORLAKE_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "TENSORLAKE_API_KEY is missing. Add it to your .env file."
+        )
 
     sandbox = None
+
     try:
-        api_key = load_api_key()
-        sandbox = create_sandbox(api_key)
-        print(f"Sandbox ID : {sandbox.sandbox_id}")
-        print(f"Status     : {sandbox.status}")
-
-        print_section("Writing file...")
-        write_result = sandbox.write_file(
-            path="/tmp/native_example.txt",
-            content=b"Hello from Tensorlake native file APIs!",
+        # Provision a new sandbox.
+        sandbox = Sandbox.create(
+            api_key=api_key,
+            name=SANDBOX_NAME,
         )
-        print(f"Trace ID  : {write_result.trace_id}")
-        print(f"Value     : {write_result.value!r}")
 
-        print_section("Reading file...")
-        read_result = sandbox.read_file(path="/tmp/native_example.txt")
-        print(f"Trace ID  : {read_result.trace_id}")
-        print(f"Value     : {read_result.value!r}")
+        log("Sandbox created successfully.")
+        log()
 
-        print_section("Listing /tmp...")
+        status = sandbox.status
+        if callable(status):
+            status = status()
+
+        status = getattr(status, "value", getattr(status, "name", status))
+
+        log("Sandbox Details")
+        log("-" * 40)
+        log(f"Sandbox ID     : {sandbox.sandbox_id}")
+        log(f"Sandbox Name   : {sandbox.name}")
+        log(f"Sandbox Status : {status}")
+        log("-" * 40)
+
+        #
+        # Step 1
+        #
+
+        log()
+        log("Step 1: Writing a file...")
+
+        write_result = sandbox.write_file(
+            path=FILE_PATH,
+            content=FILE_CONTENT,
+        )
+
+        log(f"Trace ID : {write_result.trace_id}")
+        log(f"Result   : {write_result.value}")
+
+        #
+        # Step 2
+        #
+
+        log()
+        log("Step 2: Reading the file...")
+
+        read_result = sandbox.read_file(path=FILE_PATH)
+
+        log(f"Trace ID : {read_result.trace_id}")
+        log(f"Content  : {read_result.value.decode()}")
+
+        #
+        # Step 3
+        #
+
+        log()
+        log("Step 3: Listing the directory...")
+
         list_result = sandbox.list_directory(path="/tmp")
-        print(f"Trace ID  : {list_result.trace_id}")
-        print(describe_directory_entries(list_result.value))
 
-        print_section("Deleting file...")
-        delete_result = sandbox.delete_file(path="/tmp/native_example.txt")
-        print(f"Trace ID  : {delete_result.trace_id}")
-        print(f"Value     : {delete_result.value!r}")
-    except ValueError as exc:
-        print(f"Configuration error: {exc}")
-        raise SystemExit(1) from exc
+        log(f"Trace ID : {list_result.trace_id}")
+        log()
+
+        log("Directory Contents")
+        log("-" * 40)
+        log(format_directory_listing(list_result.value))
+
+        #
+        # Step 4
+        #
+
+        log()
+        log("Step 4: Deleting the file...")
+
+        delete_result = sandbox.delete_file(path=FILE_PATH)
+
+        log(f"Trace ID : {delete_result.trace_id}")
+        log(f"Result   : {delete_result.value}")
+
+        #
+        # Step 5
+        #
+
+        log()
+        log("Step 5: Verifying deletion...")
+
+        verify_result = sandbox.list_directory(path="/tmp")
+
+        log("Directory Contents")
+        log("-" * 40)
+        log(format_directory_listing(verify_result.value))
+
     except Exception as exc:
-        print(f"Failed to complete example: {exc}")
-        raise SystemExit(1) from exc
+        log(f"Failed to demonstrate the Native File API: {exc}")
+        raise
+
     finally:
-        # Temporary sandboxes should be cleaned up after use to avoid quota buildup.
-        print()
-        print("Terminating sandbox...")
-        cleanup_sandbox(sandbox)
+        # Always terminate the sandbox after the demonstration.
+        if sandbox is not None:
+            log()
+            log("Cleaning up sandbox...")
+            sandbox.terminate()
+            log("Sandbox terminated successfully.")
+
+        # Save the console output to output.txt.
+        logger.save()
 
 
 if __name__ == "__main__":

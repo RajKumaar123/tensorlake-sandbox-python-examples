@@ -1,26 +1,30 @@
-Creating Tensorlake sandbox...
-Sandbox ID : 4rxuk0w8vrkeb63n5udtz
-Status     : SandboxStatus.RUNNING
+Creating TensorLake sandbox...
+Sandbox created successfully.
 
-Creating state...
+Sandbox Details
 ----------------------------------------
+Sandbox ID     : a9obghprciyqf4usuey0u
+Sandbox Name   : tensorlake-example-07-suspend-resume
+Sandbox Status : running
+----------------------------------------
+
+Step 1: Creating state...
 Exit Code : 0
-STDOUT    : ''
-STDERR    : ''
+STDOUT    : <empty>
+STDERR    : <empty>
 
-Suspending sandbox...
-----------------------------------------
+Step 2: Suspending sandbox...
 Sandbox suspended successfully.
 
-Resuming sandbox...
-----------------------------------------
+Step 3: Resuming sandbox...
 Sandbox resumed successfully.
 
-Verifying state...
-----------------------------------------
+Step 4: Verifying state...
 Exit Code : 0
-STDOUT    : 'suspend-resume works'
-STDERR    : ''
+STDOUT    : Suspend and Resume works!
+STDERR    : <empty>
 
-Terminating sandbox...
+State verification completed successfully.
+
+Cleaning up sandbox...
 Sandbox terminated successfully.

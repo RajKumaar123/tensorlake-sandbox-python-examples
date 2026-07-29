@@ -1,0 +1,27 @@
+https://www.kaggle.com/code/odins0n/video-anomaly-detection/notebook
+gg
+
+
+Recommended article flow
+Subject: First Article Draft – Feedback Welcome
+
+Hi Shanshan,
+
+I hope you're doing well.
+
+As mentioned in my previous email, I've now completed the first draft of the article based on my hands-on exploration of Tensorlake Sandboxes.
+
+The article focuses on practical engineering experiences and the lessons learned while building and verifying the examples, rather than simply walking through the documentation. I've also included architecture and workflow diagrams to help illustrate how Tensorlake Sandboxes fit into modern AI applications.
+
+Before publishing, I'd really appreciate your feedback to ensure the technical content is accurate and that the article aligns well with Tensorlake's messaging and priorities.
+
+I've attached/shared the draft below:
+(link to Google Doc, Medium draft, or PDF)
+
+If you have any suggestions or areas you'd like me to improve, I'd be happy to incorporate them before publication.
+
+Thank you again for all your support throughout this process. I look forward to hearing your thoughts.
+
+Best regards,
+
+Raj Kumar

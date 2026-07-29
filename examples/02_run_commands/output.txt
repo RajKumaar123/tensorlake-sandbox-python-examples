@@ -1,20 +1,26 @@
-Creating Tensorlake sandbox...
-Sandbox ID : 7f9d50wbd9eyfg18cnkjy
-Status     : SandboxStatus.RUNNING
+Creating TensorLake sandbox...
+Sandbox created successfully.
+
+Sandbox Details
+----------------------------------------
+Sandbox ID     : um2iql70enuyug3lbkn7x
+Sandbox Name   : tensorlake-example-02-run-commands
+Sandbox Status : running
+----------------------------------------
 
 Executing command...
 
-Trace ID:
-7d1f2d1ac8050ba0121972b1f48dcda5
+Command Result
+----------------------------------------
+Trace ID  : b44a2ed778ab3b7c41f0bcc0a57b30f7
+Exit Code : 0
 
-Exit Code:
-0
-
-STDOUT:
+STDOUT
 Python 3.12.3
 
-STDERR:
+STDERR
+<empty>
+----------------------------------------
 
-
-Terminating sandbox...
+Cleaning up sandbox...
 Sandbox terminated successfully.

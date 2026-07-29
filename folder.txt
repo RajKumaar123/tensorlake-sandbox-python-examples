@@ -1,4 +1,5 @@
 Development Workflow
+# Keep this as the high-level path for project work.
 Research
       ↓
 Explore SDK
@@ -17,6 +18,7 @@ Git Commit
       ↓
 Write Medium Article
 
+# Repository layout for the examples project
 tensorlake-sandbox-python-examples/
 │
 ├── README.md                 # GitHub landing page (keep ONLY this here)
@@ -31,131 +33,193 @@ tensorlake-sandbox-python-examples/
 │   ├── notes.md
 │   ├── CONTRIBUTING.md
 │   ├── CHANGELOG.md
-│   ├── example_completion_checklist.md
-│   │
-│   ├── article_notes/
-│   ├── diagrams/
-│   ├── outputs/
-│   └── screenshots/
+│   └── example_completion_checklist.md
 │
-├── experiments/
-├── examples/
-└── utils/
+├── experiments/              # Temporary exploration scripts
+├── examples/                 # Production-quality examples
+└── utils/                    # Shared helper modules
 
-
+# Current project planning notes
 tensorlake-sandbox-python-examples/
 │
 ├── README.md                  # Public landing page and project overview
-├── AGENTS.md                  # Instructions for AI coding assistants (Codex, Copilot, Claude, Cursor)
-├── ROADMAP.md                 # Project roadmap and progress tracker
-├── notes.md                   # Engineering journal (discoveries, experiments, lessons learned)
-├── CONTRIBUTING.md            # Contribution guidelines
-├── CHANGELOG.md               # Project history and release notes
-│
-├── requirements.txt           # Python dependencies
-├── .gitignore                 # Git ignore rules
-├── .env.example               # Sample environment variables
-├── .env                       # Local API key (DO NOT COMMIT)
-│
+├── PROMPTS.md                 # Personal prompt reference
+├── release readiness review.md # Personal review notes
 ├── docs/                      # Documentation resources
-│   │
-│   ├── article_notes/         # Notes used while writing Medium articles
-│   │
-│   ├── diagrams/              # Architecture diagrams
-│   │
-│   ├── outputs/               # Saved terminal outputs
-│   │
-│   └── screenshots/           # Screenshots for GitHub and Medium articles
+│   ├── AGENTS.md              # Instructions for AI coding assistants
+│   ├── ROADMAP.md             # Project roadmap and progress tracker
+│   ├── notes.md               # Engineering journal and lessons learned
+│   ├── CONTRIBUTING.md        # Contribution guidelines
+│   ├── CHANGELOG.md           # Project history and release notes
+│   ├── DECISIONS.md           # Architecture decision records
+│   ├── engineering_principles.md
+│   ├── project_blueprint.md
+│   └── example_completion_checklist.md
 │
-├── experiments/               # Temporary exploration scripts (NOT production examples)
-│   │
+├── experiments/               # Temporary exploration code
 │   ├── check_env.py
 │   ├── create_sandbox.py
 │   ├── explore_tensorlake.py
 │   ├── inspect_run.py
 │   ├── inspect_sandbox.py
 │   ├── inspect_url.py
+│   ├── notes.md
+│   ├── README.md
+│   ├── requirements.txt
 │   ├── run_commands.py
 │   ├── sandbox_test.py
 │   ├── stateful_sandbox.py
 │   └── test_tensorlake.py
 │
-├── examples/                  # Production-quality examples
-│   │
+├── examples/                  # Verified learning examples
 │   ├── 01_create_sandbox/
-│   │   ├── main.py            # Example source code
-│   │   ├── README.md          # Example explanation
-│   │   ├── output.txt         # Verified terminal output
-│   │   └── images/            # Screenshots
-│   │
 │   ├── 02_run_commands/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   ├── 03_stateful_filesystem/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   ├── 04_install_packages/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   ├── 05_native_file_api/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   ├── 06_snapshots/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   ├── 07_suspend_resume/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   ├── 08_process_management/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   ├── 09_parallel_sandboxes/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   ├── 10_browser_automation/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   ├── 11_computer_use/
-│   │   ├── main.py
-│   │   ├── README.md
-│   │   ├── output.txt
-│   │   └── images/
-│   │
 │   └── 12_ai_agent_demo/
-│       ├── main.py
-│       ├── README.md
-│       ├── output.txt
-│       └── images/
 │
-└── utils/                     # Shared helper modules
-    │
-    ├── config.py              # Environment variables and configuration
-    ├── logger.py              # Logging utilities
-    └── common.py              # Shared helper functions
+├── utils/                     # Shared helpers
+│   ├── common.py
+│   ├── config.py
+│   └── logger.py
+│
+├── projects/                  # Flagship application work
+│   └── 01-insight-forge/
+│
+└── folder.txt                 # Personal planning reference
+
+# experiments/ file inventory
+experiments/
+├── check_env.py           # Verify environment variables and SDK access
+├── create_sandbox.py      # Prototype sandbox creation flow
+├── explore_tensorlake.py   # Explore Tensorlake SDK behavior
+├── inspect_run.py         # Inspect command execution behavior
+├── inspect_sandbox.py     # Inspect sandbox object and properties
+├── inspect_url.py         # Inspect URL-related SDK behavior
+├── notes.md               # Temporary exploration notes
+├── README.md              # Experiment workspace overview
+├── requirements.txt       # Experiment-specific dependencies
+├── run_commands.py        # Prototype command execution script
+├── sandbox_test.py        # Sandbox verification script
+├── stateful_sandbox.py    # Prototype stateful filesystem checks
+└── test_tensorlake.py     # Quick SDK test harness
+
+# examples/ folder inventory
+examples/
+├── 01_create_sandbox/       # Create and inspect the first sandbox
+│   ├── main.py              # Example source code
+│   ├── README.md            # Example documentation
+│   └── output.txt           # Verified terminal output
+├── 02_run_commands/         # Execute commands inside a sandbox
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+├── 03_stateful_filesystem/  # Demonstrate filesystem persistence
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+├── 04_install_packages/     # Install packages inside the sandbox
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+├── 05_native_file_api/      # Use native file APIs instead of shell calls
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+├── 06_snapshots/            # Create and manage sandbox snapshots
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+├── 07_suspend_resume/       # Suspend and resume named sandboxes
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+├── 08_process_management/   # Start, list, and kill long-lived processes
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+├── 09_parallel_sandboxes/   # Explore sandbox cloning and parallelism
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+├── 10_browser_automation/   # Interactive browser automation primitive
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+├── 11_computer_use/         # Desktop connection and computer-use flow
+│   ├── main.py
+│   ├── README.md
+│   └── output.txt
+└── 12_ai_agent_demo/        # Lightweight AI agent-style workflow
+    ├── main.py
+    ├── README.md
+    └── output.txt
+
+# Flagship project foundation
+projects/
+│
+└── 01-insight-forge/
+    ├── README.md              # Flagship project overview
+    ├── requirements.txt       # Project dependencies
+    ├── .env.example           # Environment template
+    ├── .gitignore             # Project-specific ignore rules
+    ├── docs/                  # Architecture and governance docs
+    ├── diagrams/              # Architecture diagrams
+    ├── screenshots/           # UI and terminal captures
+    ├── outputs/               # Generated reports and logs
+    ├── src/                   # Python source package
+    ├── agents/                # Planned agent modules
+    ├── tools/                 # Planned reusable tools
+    ├── memory/                # Planned memory layer
+    ├── workflows/             # Planned workflow layer
+    ├── prompts/               # Planned prompt templates
+    ├── tests/                 # Planned tests
+    └── examples/              # Project-local demos if needed later
+
+# Python package layout inside the flagship project
+projects/01-insight-forge/src/
+└── insight_forge/
+    ├── __init__.py           # Package marker
+    ├── config.py             # Configuration loading and access
+    ├── logger.py             # Project logging helpers
+    ├── sandbox_manager.py    # Sandbox lifecycle wrapper
+    └── orchestrator.py       # Workflow orchestration entrypoint
+
+# Flagship project docs
+projects/01-insight-forge/docs/
+├── architecture.md           # Architecture overview
+├── roadmap.md                # Milestones and progress
+├── decisions.md              # ADRs and major governance choices
+├── prompts.md                # Prompt planning notes
+├── changelog.md              # Change history
+├── engineering_principles.md # Development principles
+└── project_blueprint.md      # Architectural contract
+
+# Milestone discipline
+Design
+    ↓
+Implement
+    ↓
+Test
+    ↓
+Document
+    ↓
+Review
+    ↓
+Commit
+    ↓
+Push
+    ↓
+Next milestone
+
+# Notes
+# Keep folder.txt as a personal reference.
+# Do not delete this file.
+# Keep comments short and readable.

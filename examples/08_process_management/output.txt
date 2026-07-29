@@ -1,20 +1,30 @@
-Creating Tensorlake sandbox...
-Sandbox ID : n7f4k62q2txpedpolpbs7
-Status     : SandboxStatus.RUNNING
+Creating TensorLake sandbox...
+Sandbox created successfully.
 
-Starting process...
+Sandbox Details
 ----------------------------------------
-Trace ID  : abeba5b754722d10dd7d49ad249db2c5
-Value     : ProcessInfo(handle=1, pid=551, status=<ProcessStatus.RUNNING: 'running'>, exit_code=None, signal=None, stdin_writable=False, command='sh', args=['-c', 'sleep 60'], started_at=datetime.datetime(2026, 7, 7, 6, 43, 44, 675000, tzinfo=datetime.timezone.utc), ended_at=None, managed=ManagedProcessInfo(id='example-08-sleep', name='example-08-sleep', status=<ManagedProcessStatus.RUNNING: 'running'>, restart_count=0, restart=RestartPolicyConfig(policy=<RestartPolicy.ON_FAILURE: 'on_failure'>, max_restarts=None, initial_backoff_ms=500, max_backoff_ms=30000), health_check=None, health_status=<ManagedProcessHealthStatus.DISABLED: 'disabled'>, consecutive_health_failures=0, last_exit=None, last_error=None, next_restart_at=None))
+Sandbox ID     : tk3jjg3fqmo7r41lf8yil
+Sandbox Name   : tensorlake-example-08-process-management
+Sandbox Status : running
+----------------------------------------
+
+Starting background process...
+Trace ID : 1faffc78f45b2fe4c67d8351bf90b7bd
+PID      : 549
+Status   : running
 
 Listing processes...
 ----------------------------------------
-- pid=551 name=N/A managed_name=example-08-sleep
+PID            : 549
+Command        : sh
+Arguments      : ['-c', 'sleep 60']
+Status         : running
+Managed Name   : example-08-sleep
+Managed Status : running
 
-Killing process...
-----------------------------------------
-Trace ID  : 828014448803ec3b9f963a328786d379
-Value     : None
+Terminating process...
+Trace ID : d19a5b752815acec6fb03dc9ccb78909
+Result   : None
 
-Terminating sandbox...
+Cleaning up sandbox...
 Sandbox terminated successfully.

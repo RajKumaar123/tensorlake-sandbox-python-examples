@@ -1,12 +1,12 @@
-Creating Tensorlake sandbox...
+Creating TensorLake sandbox...
 Sandbox created successfully.
 
 Sandbox Details
 ----------------------------------------
-Sandbox ID    : odn1zymny32t24ifwrm40
-Sandbox Name  : None
-Sandbox Status: SandboxStatus.RUNNING
+Sandbox ID     : 47so6hc1u0m3xpnr2zz8c
+Sandbox Name   : tensorlake-example-01-create-sandbox
+Sandbox Status : running
 ----------------------------------------
 
-Terminating sandbox...
+Cleaning up sandbox...
 Sandbox terminated successfully.
