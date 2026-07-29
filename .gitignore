@@ -1,5 +1,5 @@
 # ==========================================================
-# Tensorlake Sandbox Python Examples
+# TensorLake Sandbox Python Examples
 # .gitignore
 # ==========================================================
 
@@ -158,7 +158,7 @@ credentials/
 *.crt
 
 # ----------------------------------------------------------
-# Tensorlake
+# TensorLake
 # ----------------------------------------------------------
 sandbox_output/
 sandbox_logs/
@@ -192,6 +192,16 @@ ehthumbs.db
 # Git
 # ----------------------------------------------------------
 *.orig
+
+# ----------------------------------------------------------
+# Personal Planning Documents (Local Only)
+# ----------------------------------------------------------
+MASTER PROJECT CONTEXT.md
+PROJECT_CONTEXT.md
+Tensorlake Medium Article Roadmap.md
+
+# Local architecture drafts
+tensorlake-architecture*
 
 # ----------------------------------------------------------
 # End of File
