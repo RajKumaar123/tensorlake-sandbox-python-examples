@@ -1,0 +1,180 @@
+
+Tensorlake SDK
+--------------
+Version   : 0.5.103
+Location  : C:\Users\DELL\Desktop\tensorlake-sandbox-python-examples\venv\Lib\site-packages\tensorlake\__init__.py
+Package   : C:\Users\DELL\Desktop\tensorlake-sandbox-python-examples\venv\Lib\site-packages\tensorlake
+Module    : tensorlake
+
+Sandbox.update
+--------------
+Exists    : True
+Signature : (self, name: 'str | None' = None, *, allow_unauthenticated_access: 'bool | None' = None, exposed_ports: 'list[int] | None' = None, network: 'NetworkConfig | ClearNetworkPolicy | None' = None) -> 'Traced[SandboxInfo]'
+Source    :
+    def update(
+        self,
+        name: str | None = None,
+        *,
+        allow_unauthenticated_access: bool | None = None,
+        exposed_ports: list[int] | None = None,
+        network: NetworkConfig | ClearNetworkPolicy | None = None,
+    ) -> Traced[SandboxInfo]:
+        """Update this sandbox's properties.
+
+        Supports updating the sandbox name, sandbox proxy access settings, and
+        the egress network policy. Naming an ephemeral sandbox makes it
+        non-ephemeral and enables suspend/resume.
+
+        Args:
+            name: New name for the sandbox.
+            allow_unauthenticated_access: Whether exposed user ports should be
+                reachable without TensorLake auth.
+            exposed_ports: User ports that should be routable through the
+                sandbox proxy. Port ``9501`` is reserved.
+            network: Egress network policy update. Omit to leave it unchanged,
+                pass a :class:`NetworkConfig` to replace it, or pass
+                :data:`CLEAR_NETWORK_POLICY` to clear it to unrestricted egress.
+
+        Returns:
+            Traced[SandboxInfo] with the updated sandbox details.
+        """
+        self._require_lifecycle_client("update")
+        traced = self._lifecycle_client.update_sandbox(
+            self._lifecycle_identifier(),
+            name=name,
+            allow_unauthenticated_access=allow_unauthenticated_access,
+            exposed_ports=exposed_ports,
+            network=network,
+        )
+        self._sandbox_id = traced.sandbox_id
+        self._cached_info = traced.value
+        return traced
+
+
+Sandbox.create
+--------------
+Signature : (image: 'str | None' = None, cpus: 'float' = 1.0, memory_mb: 'int' = 1024, disk_mb: 'int | None' = None, gpus: 'int | None' = None, gpu_model: 'str | None' = None, timeout_secs: 'int | None' = None, entrypoint: 'list[str] | None' = None, allow_internet_access: 'bool' = True, allow_out: 'list[str] | None' = None, deny_out: 'list[str] | None' = None, pool_id: 'str | None' = None, snapshot_id: 'str | None' = None, proxy_url: 'str | None' = None, request_timeout: 'float | None' = None, startup_timeout: 'float | None' = None, name: 'str | None' = None, file_systems: 'list[FileSystemMount] | None' = None, api_key: '<redacted>', api_url: 'str' = 'https://api.tensorlake.ai', organization_id: 'str | None' = None, project_id: 'str | None' = None, namespace: 'str | None' = 'default') -> "'Sandbox'"
+
+Networking models
+-----------------
+Discovered : NetworkConfig
+Module     : tensorlake.sandbox.models
+Signature  : (*, allow_internet_access: bool = True, allow_out: list[str] = <factory>, deny_out: list[str] = <factory>) -> None
+Annotations: {'allow_internet_access': <class 'bool'>, 'allow_out': list[str], 'deny_out': list[str]}
+Dataclass   : False
+Fields      :
+  - allow_internet_access: <class 'bool'>
+  - allow_out: list[str]
+    description: Destinations to allow: IPv4 addresses, CIDRs, or hostnames (e.g. ["8.8.8.8", "10.0.0.0/8", "api.example.com"]). Overridden by any matching deny_out entry.
+  - deny_out: list[str]
+    description: Destinations to deny: IPv4 addresses, CIDRs, or hostnames (e.g. ["192.168.1.0/24", "ads.example.com"]). Takes precedence over allow_out.
+Source      :
+class NetworkConfig(BaseModel):
+    """Egress network access control policy for a sandbox.
+
+    Enforced host-side per sandbox. ``deny_out`` takes precedence over
+    ``allow_out``: a destination matched by both is blocked. Established and
+    related connections are always permitted (stateful firewall).
+
+    When ``allow_internet_access`` is ``True`` (the default), outbound traffic
+    is allowed unless matched by ``deny_out``. When ``False``, outbound is
+    blocked unless matched by ``allow_out`` (and not by ``deny_out``).
+
+    Entries may be IPv4 addresses, CIDR ranges, or DNS hostnames (an optional
+    ``:port`` suffix is accepted but does not make the rule port-specific).
+    Hostname rules are followed across DNS changes, so a CDN-backed name keeps
+    working as its addresses rotate. Deny-precedence applies to the sandbox's
+    own DNS resolver too: a ``deny_out`` covering the resolver disables DNS
+    even if ``allow_out`` also covers it.
+
+    The policy can be changed on a running sandbox with
+    :meth:`Sandbox.update` (pass ``network=...`` or
+    :data:`CLEAR_NETWORK_POLICY`).
+    """
+
+    allow_internet_access: bool = True
+    allow_out: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Destinations to allow: IPv4 addresses, CIDRs, or hostnames "
+            '(e.g. ["8.8.8.8", "10.0.0.0/8", "api.example.com"]). '
+            "Overridden by any matching deny_out entry."
+        ),
+    )
+    deny_out: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Destinations to deny: IPv4 addresses, CIDRs, or hostnames "
+            '(e.g. ["192.168.1.0/24", "ads.example.com"]). '
+            "Takes precedence over allow_out."
+        ),
+    )
+
+
+Additional network symbols
+--------------------------
+ClearNetworkPolicy: present
+  module : tensorlake.sandbox.models
+  type   : <class 'enum.EnumType'>
+  value  : <enum 'ClearNetworkPolicy'>
+  sig    : (*values)
+  source : class ClearNetworkPolicy(Enum):
+    """Sentinel type for :data:`CLEAR_NETWORK_POLICY`."""
+
+    TOKEN = "clear"
+
+CLEAR_NETWORK_POLICY: present
+  module : tensorlake.sandbox.models
+  type   : <enum 'ClearNetworkPolicy'>
+  value  : ClearNetworkPolicy.TOKEN
+  sig    : <unavailable: <ClearNetworkPolicy.TOKEN: 'clear'> is not a callable object>
+  source : <not applicable for enum member>
+
+Networking constants / enums
+----------------------------
+ClearNetworkPolicy enum: present
+CLEAR_NETWORK_POLICY    : present
+
+Runtime policy update support
+-----------------------------
+Sandbox.update signature            : (self, name: 'str | None' = None, *, allow_unauthenticated_access: 'bool | None' = None, exposed_ports: 'list[int] | None' = None, network: 'NetworkConfig | ClearNetworkPolicy | None' = None) -> 'Traced[SandboxInfo]'
+Sandbox.update has network arg      : yes
+Sandbox.update has network-equivalent: yes
+Verified: runtime policy updates are exposed through Sandbox.update(network=...).
+
+Verified capabilities
+---------------------
+- Sandbox.update() accepts network: NetworkConfig | ClearNetworkPolicy | None.
+- Sandbox.create() accepts allow_internet_access, allow_out, and deny_out.
+- NetworkConfig models outbound allow_out and deny_out lists.
+- NetworkConfig defaults to allow_internet_access=True.
+- NetworkConfig source explicitly documents runtime policy changes on a running sandbox.
+- NetworkConfig supports IPv4 addresses, CIDR ranges, DNS hostnames, and optional :port suffixes.
+- deny_out takes precedence over allow_out.
+- ClearNetworkPolicy exists as an enum sentinel with member TOKEN = 'clear'.
+- CLEAR_NETWORK_POLICY is the enum member ClearNetworkPolicy.TOKEN.
+- CLEAR_NETWORK_POLICY clears the network policy to unrestricted egress.
+
+Unverified / unknown items
+--------------------------
+- Whether runtime mutation behaves correctly against a live sandbox without a real network test.
+- Whether hostnames resolve exactly as documented across all DNS edge cases.
+- Whether :port suffixes are ignored for matching or normalized in all server-side paths.
+
+Technical assessment
+--------------------
+The installed SDK supports least-privilege network policy at sandbox creation time through allow_internet_access, allow_out, and deny_out. It also supports runtime policy transitions through Sandbox.update(network=...).
+The production pattern 'running sandbox -> restrict network -> allow approved destination -> change policy at runtime -> revoke access -> block egress' is technically viable in this SDK version.
+
+Next experiment design
+----------------------
+- Create one sandbox with baseline internet access.
+- Verify a benign connectivity probe.
+- Apply a restrictive policy on the same running sandbox.
+- Verify the approved destination works and an unauthorized one fails.
+- Replace the policy to approve a different destination.
+- Use CLEAR_NETWORK_POLICY to restore unrestricted egress.
+
+Command to run
+--------------
+python 02-secure-agent-execution/experiments/01_inspect_network_policy/main.py

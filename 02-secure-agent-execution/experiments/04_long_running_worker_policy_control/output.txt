@@ -1,0 +1,303 @@
+Long-Running Worker Policy Control
+==================================
+Model: worker identity + worker state + dynamic network policy
+
+Sandbox
+-------
+sandbox id   : xelxnl7cwb9t3tlel7hhr
+sandbox name : tensorlake-secure-agent-long-worker-demo
+
+Worker Process
+--------------
+name   : secure-agent-worker
+pid    : 539
+status : running
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 1
+counter after  : 3
+result         : PASS
+
+Initial Worker State
+--------------------
+exit code : 0
+stdout    : worker-started
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : worker-started
+
+Phase 1: Approved Project Access
+================================
+
+Active Network Policy
+---------------------
+allow_internet_access : True
+allow_out             : buildaisystem.com
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://example.org
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 7
+counter after  : 9
+result         : PASS
+
+Worker State Update
+-------------------
+exit code : 0
+stdout    : phase-1-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-1-complete
+
+Phase 2: Change Approved Service
+================================
+
+Active Network Policy
+---------------------
+allow_internet_access : True
+allow_out             : example.org
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination : https://example.org
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 13
+counter after  : 15
+result         : PASS
+
+Worker State Persistence
+------------------------
+exit code : 0
+stdout    : phase-1-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-1-complete
+
+Worker State Update
+-------------------
+exit code : 0
+stdout    : phase-2-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-2-complete
+
+Phase 3: Network-Isolated Execution
+===================================
+
+Active Network Policy
+---------------------
+allow_internet_access : False
+allow_out             : <empty>
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://example.org
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 37
+counter after  : 39
+result         : PASS
+
+Worker State Under Isolation
+----------------------------
+exit code : 0
+stdout    : phase-2-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-2-complete
+
+Local Execution Under Network Isolation
+---------------------------------------
+exit code : 0
+stdout    : worker-alive-under-network-isolation
+stderr    : <empty>
+result    : PASS
+
+Isolation Result Verification
+-----------------------------
+exit code : 0
+stdout    : worker-alive-under-network-isolation
+stderr    : <empty>
+result    : PASS
+file      : /tmp/isolation_result.txt
+value     : worker-alive-under-network-isolation
+
+Worker State Update
+-------------------
+exit code : 0
+stdout    : phase-3-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-3-complete
+
+Phase 4: Recovery
+=================
+
+Active Network Policy
+---------------------
+network : CLEAR_NETWORK_POLICY
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://example.org
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 43
+counter after  : 45
+result         : PASS
+
+Worker State After Recovery
+---------------------------
+exit code : 0
+stdout    : phase-3-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-3-complete
+
+Final Isolation Result
+----------------------
+exit code : 0
+stdout    : worker-alive-under-network-isolation
+stderr    : <empty>
+result    : PASS
+file      : /tmp/isolation_result.txt
+value     : worker-alive-under-network-isolation
+
+Worker State Update
+-------------------
+exit code : 0
+stdout    : phase-4-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-4-complete
+
+Worker Shutdown
+---------------
+stop requested for pid : 539
+status after stop     : signaled
+result                : PASS
+
+Long-running worker policy control experiment completed successfully.
+
+Terminating sandbox...
+Sandbox terminated.

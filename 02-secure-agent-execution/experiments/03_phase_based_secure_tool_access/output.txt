@@ -1,0 +1,188 @@
+Phase-Based Secure Tool Access
+==============================
+Model: execution phase -> required privilege -> network policy -> action
+
+sandbox id   : 7xdtznkdsnq4oktce2aa1
+sandbox name : tensorlake-secure-agent-phase-access-demo
+
+Phase 1: Preparation
+====================
+
+Active Network Policy
+---------------------
+allow_internet_access : True
+allow_out             : buildaisystem.com
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination    : https://buildaisystem.com
+expected       : reachable
+actual         : reachable
+http status    : 200
+content length : 122097
+network        : reachable
+stdout         : REACHABLE host=buildaisystem.com status=200 length=122097
+stderr         : <empty>
+result         : PASS
+
+Connectivity Test
+-----------------
+destination    : https://example.org
+expected       : blocked
+actual         : blocked
+http status    : <none>
+content length : <none>
+network        : blocked
+network err    : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout         : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr         : <empty>
+result         : PASS
+
+State Action
+------------
+exit code : 0
+stdout    : trusted-context-loaded
+stderr    : <empty>
+result    : PASS
+file      : /tmp/agent_context.txt
+value     : trusted-context-loaded
+
+Phase 2: Approved Tool Execution
+================================
+
+Active Network Policy
+---------------------
+allow_internet_access : True
+allow_out             : example.org
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination    : https://example.org
+expected       : reachable
+actual         : reachable
+http status    : 200
+content length : <unknown>
+network        : reachable
+stdout         : REACHABLE host=example.org status=200 length=<unknown>
+stderr         : <empty>
+result         : PASS
+
+Connectivity Test
+-----------------
+destination    : https://buildaisystem.com
+expected       : blocked
+actual         : blocked
+http status    : <none>
+content length : <none>
+network        : blocked
+network err    : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout         : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr         : <empty>
+result         : PASS
+
+Tool Action
+-----------
+exit code : 0
+stdout    : approved-tool-executed
+stderr    : <empty>
+result    : PASS
+file      : /tmp/tool_result.txt
+value     : approved-tool-executed
+
+State Continuity Check
+----------------------
+exit code : 0
+stdout    : trusted-context-loaded
+stderr    : <empty>
+result    : PASS
+file      : /tmp/agent_context.txt
+value     : trusted-context-loaded
+
+Phase 3: Untrusted Execution
+============================
+
+Active Network Policy
+---------------------
+allow_internet_access : False
+allow_out             : <empty>
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination    : https://buildaisystem.com
+expected       : blocked
+actual         : blocked
+http status    : <none>
+content length : <none>
+network        : blocked
+network err    : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout         : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr         : <empty>
+result         : PASS
+
+Connectivity Test
+-----------------
+destination    : https://example.org
+expected       : blocked
+actual         : blocked
+http status    : <none>
+content length : <none>
+network        : blocked
+network err    : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout         : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr         : <empty>
+result         : PASS
+
+Local-Only Computation
+----------------------
+exit code : 0
+stdout    : secure-execution-complete
+stderr    : <empty>
+result    : PASS
+
+Phase 4: Verification and Recovery
+==================================
+
+Final State Verification
+------------------------
+exit code : 0
+stdout    : secure-execution-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/final_result.txt
+value     : secure-execution-complete
+
+Active Network Policy
+---------------------
+network : CLEAR_NETWORK_POLICY
+
+Connectivity Test
+-----------------
+destination    : https://buildaisystem.com
+expected       : reachable
+actual         : reachable
+http status    : 200
+content length : 122097
+network        : reachable
+stdout         : REACHABLE host=buildaisystem.com status=200 length=122097
+stderr         : <empty>
+result         : PASS
+
+Connectivity Test
+-----------------
+destination    : https://example.org
+expected       : reachable
+actual         : reachable
+http status    : 200
+content length : <unknown>
+network        : reachable
+stdout         : REACHABLE host=example.org status=200 length=<unknown>
+stderr         : <empty>
+result         : PASS
+
+Phase-based secure tool access experiment completed successfully.
+
+Terminating sandbox...
+Sandbox terminated.

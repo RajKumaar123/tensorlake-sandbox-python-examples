@@ -1,0 +1,158 @@
+
+Phase 1: Baseline connectivity
+==============================
+sandbox id  : lkgnk7fy4a1nmut6adn6l
+sandbox name: tensorlake-secure-agent-network-policy-demo
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://example.org
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Phase 2: Restrict to approved host
+==================================
+
+Network Policy
+--------------
+allow_internet_access : True
+allow_out             : buildaisystem.com
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://example.org
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Phase 3: Change approved host
+=============================
+
+Network Policy
+--------------
+allow_internet_access : True
+allow_out             : example.org
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination : https://example.org
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Phase 4: Block all outbound access
+==================================
+
+Network Policy
+--------------
+allow_internet_access : False
+allow_out             : <empty>
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://example.org
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Phase 5: Clear policy
+=====================
+
+Network Policy
+--------------
+network : CLEAR_NETWORK_POLICY
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://example.org
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Runtime policy transition experiment completed successfully.
+
+Terminating sandbox...
+Sandbox terminated.

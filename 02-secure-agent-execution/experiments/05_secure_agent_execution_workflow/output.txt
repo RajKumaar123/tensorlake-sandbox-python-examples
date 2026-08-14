@@ -1,0 +1,396 @@
+Secure Agent Execution Workflow
+===============================
+Model: orchestrator controls privileges around one persistent worker
+
+Sandbox
+-------
+sandbox id   : l5y977684newot7zkedp2
+sandbox name : tensorlake-secure-agent-execution-workflow
+
+Worker Process
+--------------
+name   : secure-agent-worker
+pid    : 539
+status : running
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 1
+counter after  : 3
+result         : PASS
+
+Initial Worker State
+--------------------
+exit code : 0
+stdout    : worker-started
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : worker-started
+
+Phase 1: Trusted Context Retrieval
+==================================
+
+Active Network Policy
+---------------------
+allow_internet_access : True
+allow_out             : buildaisystem.com
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://www.tensorlake.ai
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 7
+counter after  : 9
+result         : PASS
+
+Trusted Context Marker
+----------------------
+exit code : 0
+stdout    : trusted-context-verified
+stderr    : <empty>
+result    : PASS
+file      : /tmp/trusted_context.txt
+value     : trusted-context-verified
+
+Worker State Update
+-------------------
+exit code : 0
+stdout    : phase-1-context-ready
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-1-context-ready
+
+Trusted Context Verification
+----------------------------
+exit code : 0
+stdout    : trusted-context-verified
+stderr    : <empty>
+result    : PASS
+file      : /tmp/trusted_context.txt
+value     : trusted-context-verified
+
+Worker State Verification
+-------------------------
+exit code : 0
+stdout    : phase-1-context-ready
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-1-context-ready
+
+Phase 2: Approved Platform / Tool Access
+========================================
+
+Active Network Policy
+---------------------
+allow_internet_access : True
+allow_out             : www.tensorlake.ai
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination : https://www.tensorlake.ai
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 13
+counter after  : 15
+result         : PASS
+
+Approved Tool Marker
+--------------------
+exit code : 0
+stdout    : approved-tool-access-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/tool_result.txt
+value     : approved-tool-access-complete
+
+Worker State Update
+-------------------
+exit code : 0
+stdout    : phase-2-tool-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-2-tool-complete
+
+Trusted Context Persistence
+---------------------------
+exit code : 0
+stdout    : trusted-context-verified
+stderr    : <empty>
+result    : PASS
+file      : /tmp/trusted_context.txt
+value     : trusted-context-verified
+
+Tool Result Verification
+------------------------
+exit code : 0
+stdout    : approved-tool-access-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/tool_result.txt
+value     : approved-tool-access-complete
+
+Phase 3: Network-Isolated Execution
+===================================
+
+Active Network Policy
+---------------------
+allow_internet_access : False
+allow_out             : <empty>
+deny_out              : <empty>
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://www.tensorlake.ai
+expected    : blocked
+actual      : blocked
+http status : <none>
+network     : blocked
+network err : error=URLError reason=[Errno -3] Temporary failure in name resolution
+stdout      : BLOCKED error=URLError reason=[Errno -3] Temporary failure in name resolution
+stderr      : <empty>
+result      : PASS
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 38
+counter after  : 40
+result         : PASS
+
+Network-Isolated Local Computation
+----------------------------------
+exit code : 0
+stdout    : secure-agent-execution-complete
+stderr    : <empty>
+result    : PASS
+
+Final Result Verification
+-------------------------
+exit code : 0
+stdout    : secure-agent-execution-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/final_result.txt
+value     : secure-agent-execution-complete
+
+Trusted Context Under Isolation
+-------------------------------
+exit code : 0
+stdout    : trusted-context-verified
+stderr    : <empty>
+result    : PASS
+file      : /tmp/trusted_context.txt
+value     : trusted-context-verified
+
+Tool Result Under Isolation
+---------------------------
+exit code : 0
+stdout    : approved-tool-access-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/tool_result.txt
+value     : approved-tool-access-complete
+
+Worker State Under Isolation
+----------------------------
+exit code : 0
+stdout    : phase-2-tool-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-2-tool-complete
+
+Worker State Update
+-------------------
+exit code : 0
+stdout    : phase-3-isolated-execution-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-3-isolated-execution-complete
+
+Phase 4: Controlled Recovery
+============================
+
+Active Network Policy
+---------------------
+network : CLEAR_NETWORK_POLICY
+
+Connectivity Test
+-----------------
+destination : https://buildaisystem.com
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Connectivity Test
+-----------------
+destination : https://www.tensorlake.ai
+expected    : reachable
+actual      : reachable
+http status : 200
+network     : reachable
+stdout      : REACHABLE status=200
+stderr      : <empty>
+result      : PASS
+
+Worker Continuity
+-----------------
+expected pid   : 539
+actual pid     : 539
+status         : running
+managed status : running
+heartbeat      : advancing
+counter before : 43
+counter after  : 45
+result         : PASS
+
+Worker State After Recovery
+---------------------------
+exit code : 0
+stdout    : phase-3-isolated-execution-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-3-isolated-execution-complete
+
+Trusted Context After Recovery
+------------------------------
+exit code : 0
+stdout    : trusted-context-verified
+stderr    : <empty>
+result    : PASS
+file      : /tmp/trusted_context.txt
+value     : trusted-context-verified
+
+Tool Result After Recovery
+--------------------------
+exit code : 0
+stdout    : approved-tool-access-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/tool_result.txt
+value     : approved-tool-access-complete
+
+Final Result After Recovery
+---------------------------
+exit code : 0
+stdout    : secure-agent-execution-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/final_result.txt
+value     : secure-agent-execution-complete
+
+Worker State Update
+-------------------
+exit code : 0
+stdout    : phase-4-recovery-complete
+stderr    : <empty>
+result    : PASS
+file      : /tmp/worker_state.txt
+value     : phase-4-recovery-complete
+
+Secure Agent Execution Summary
+==============================
+worker continuity            : PASS
+phase-based access control   : PASS
+trusted context access       : PASS
+tool access transition       : PASS
+network isolation            : PASS
+state persistence            : PASS
+local isolated execution     : PASS
+network recovery             : PASS
+final result                 : secure-agent-execution-complete
+
+Worker Shutdown
+---------------
+stop requested for pid : 539
+status after stop     : signaled
+result                : PASS
+
+Secure agent execution workflow completed successfully.
+
+Terminating sandbox...
+Sandbox terminated.
