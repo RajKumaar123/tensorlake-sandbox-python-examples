@@ -1,0 +1,15 @@
+{
+  "experiment": "05-shared-state-across-workers",
+  "tensorlake_sdk": "0.5.123",
+  "final_result": "PASS",
+  "primary_filesystem": "article3-stateful-agent-workspace",
+  "stage2_sha256": "1676930860ab4e1b5cad4db2289e88c9aa8852ca17ce8a3858d10bf0bbf4cec7",
+  "sandbox_d": {"name": "article3-shared-state-worker-a", "id": "8kul51i6yhk87ns5suzpz", "mount_path": "/workspace", "read_only": false, "snapshot_id": null},
+  "sandbox_e": {"name": "article3-shared-state-worker-b", "id": "qogawp7zxjmcknrb272gk", "mount_path": "/workspace", "read_only": false, "snapshot_id": null},
+  "worker_a": {"path": "workers/worker-a/result.json", "bytes": 175, "sha256": "e94809fc9aaa4b0658deea7d15e5fc2cf427b3c097ee95cdc7343a08137a0adb", "exit_code": 0, "external_read_pass": true, "poll_attempts": 1, "poll_elapsed_seconds": 0.25},
+  "worker_b": {"path": "workers/worker-b/result.json", "bytes": 175, "sha256": "7a2a246da100ca4c2af77065a6e3e206ec0451d27287166e396e415a4cad00ac", "exit_code": 0, "external_read_pass": true, "poll_attempts": 1, "poll_elapsed_seconds": 0.27},
+  "cross_worker_visibility": {"sandbox_d_reads_worker_b": true, "sandbox_e_reads_worker_a": true},
+  "previous_state_unchanged": true,
+  "pass_criteria": {"primary_stage2_precondition": "PASS", "worker_a_target_absent": "PASS", "worker_b_target_absent": "PASS", "sandbox_d_created": "PASS", "sandbox_e_created": "PASS", "both_writable_mounts_verified": "PASS", "worker_a_owned_path_write": "PASS", "worker_b_owned_path_write": "PASS", "worker_a_external_read": "PASS", "worker_b_external_read": "PASS", "sandbox_d_reads_worker_b": "PASS", "sandbox_e_reads_worker_a": "PASS", "primary_stage2_remains_unchanged": "PASS"},
+  "termination_requested": {"sandbox_d": true, "sandbox_e": true}
+}

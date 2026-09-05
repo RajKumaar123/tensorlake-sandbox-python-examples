@@ -1,0 +1,50 @@
+Experiment 2: Replace the Compute
+=========================================
+tensorlake sdk          : 0.5.123
+experiment              : 02-replace-the-compute
+Experiment 1 Sandbox A : terminated (historical)
+cloud volume/filesystem : article3-stateful-agent-workspace
+Stage 1 evidence path   : state/stage1.json
+Stage 2 evidence path   : state/stage2.json
+Stage 2 expected sha256 : f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+api key                 : configured (redacted)
+
+Host-side Stage 1 precondition
+host Stage 1 bytes      : 124
+host Stage 1 sha256     : d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872
+host Stage 1 check      : PASS
+
+Creating new Sandbox B with the same writable Cloud Volume mount
+sandbox B name          : article3-replace-compute-sandbox-b
+sandbox B id            : 9pbnzpnp15rcw6k30salg
+mount path              : /workspace
+
+Sandbox B validates Stage 1 and writes deterministic Stage 2
+sandbox B exit code     : 0
+sandbox B Stage 1 bytes : 124
+sandbox B Stage 1 hash  : d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872
+sandbox B Stage 2 bytes : 187
+sandbox B Stage 2 hash  : f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+sandbox B Stage 1 check : PASS
+sandbox B Stage 2 write : PASS (local sanity check only)
+
+Polling host-side Filesystem.read_file() for published Stage 2 state
+external Stage 2 read attempt 1: elapsed=0.00s bytes=187 hash=f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+external Stage 2 read   : PASS
+external Stage 2 bytes  : 187
+external Stage 2 sha256 : f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+poll attempts           : 1
+poll elapsed seconds    : 0.27
+
+PASS criteria
+  host Stage 1 precondition      : PASS
+  new Sandbox B created          : PASS
+  Sandbox B Stage 1 read         : PASS
+  Sandbox B Stage 2 write        : PASS
+  host Filesystem.read_file      : PASS
+  Stage 2 SHA-256 content match  : PASS
+
+final result               : PASS
+
+Terminating Sandbox B
+sandbox B termination  : requested

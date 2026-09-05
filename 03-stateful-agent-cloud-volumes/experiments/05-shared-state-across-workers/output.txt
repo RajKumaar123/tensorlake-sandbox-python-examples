@@ -1,0 +1,91 @@
+Experiment 5: Shared State Across Workers
+=================================================
+tensorlake sdk              : 0.5.123
+experiment                  : 05-shared-state-across-workers
+primary filesystem          : article3-stateful-agent-workspace
+worker A path               : workers/worker-a/result.json
+worker A expected sha256    : e94809fc9aaa4b0658deea7d15e5fc2cf427b3c097ee95cdc7343a08137a0adb
+worker B path               : workers/worker-b/result.json
+worker B expected sha256    : 7a2a246da100ca4c2af77065a6e3e206ec0451d27287166e396e415a4cad00ac
+api key                     : configured (redacted)
+
+Host-side preconditions
+primary Stage 2 sha256      : 1676930860ab4e1b5cad4db2289e88c9aa8852ca17ce8a3858d10bf0bbf4cec7
+Worker A target absent      : PASS
+Worker B target absent      : PASS
+host preconditions          : PASS
+
+Creating Sandbox D and Sandbox E with same writable Cloud Volume
+sandbox D name              : article3-shared-state-worker-a
+sandbox D id                : 8kul51i6yhk87ns5suzpz
+sandbox E name              : article3-shared-state-worker-b
+sandbox E id                : qogawp7zxjmcknrb272gk
+
+Verifying writable mounts
+Sandbox D mount file_system_id : article3-stateful-agent-workspace
+Sandbox D mount path           : /workspace
+Sandbox D mount read_only      : False
+Sandbox D mount snapshot_id    : None
+Sandbox E mount file_system_id : article3-stateful-agent-workspace
+Sandbox E mount path           : /workspace
+Sandbox E mount read_only      : False
+Sandbox E mount snapshot_id    : None
+mount configuration         : PASS
+
+Worker A writes only its owned path
+Worker A exit code          : 0
+Worker A bytes              : 175
+Worker A sha256             : e94809fc9aaa4b0658deea7d15e5fc2cf427b3c097ee95cdc7343a08137a0adb
+Worker A local validation   : PASS
+
+Worker B writes only its owned path
+Worker B exit code          : 0
+Worker B bytes              : 175
+Worker B sha256             : 7a2a246da100ca4c2af77065a6e3e206ec0451d27287166e396e415a4cad00ac
+Worker B local validation   : PASS
+
+Polling host-side Filesystem.read_file() for both worker artifacts
+external read workers/worker-a/result.json attempt 1: elapsed=0.00s bytes=175 hash=e94809fc9aaa4b0658deea7d15e5fc2cf427b3c097ee95cdc7343a08137a0adb
+external read workers/worker-b/result.json attempt 1: elapsed=0.00s bytes=175 hash=7a2a246da100ca4c2af77065a6e3e206ec0451d27287166e396e415a4cad00ac
+external Worker A read      : PASS
+external Worker B read      : PASS
+Worker A poll attempts      : 1
+Worker A poll elapsed       : 0.25s
+Worker B poll attempts      : 1
+Worker B poll elapsed       : 0.27s
+
+Checking combined filesystem listing
+workers/ listed entries     : ['workers/worker-a', 'workers/worker-b']
+
+Cross-worker visibility checks
+Sandbox D reads Worker B exit code : 0
+Sandbox E reads Worker A exit code : 0
+Sandbox D reads Worker B    : PASS
+Sandbox E reads Worker A    : PASS
+
+Protecting previous Article 3 state
+primary Stage 2 sha256      : 1676930860ab4e1b5cad4db2289e88c9aa8852ca17ce8a3858d10bf0bbf4cec7
+previous state unchanged    : PASS
+
+PASS criteria
+  primary Stage 2 precondition        : PASS
+  Worker A target absent              : PASS
+  Worker B target absent              : PASS
+  Sandbox D created                   : PASS
+  Sandbox E created                   : PASS
+  both writable mounts verified       : PASS
+  Worker A owned-path write           : PASS
+  Worker B owned-path write           : PASS
+  Worker A external read              : PASS
+  Worker B external read              : PASS
+  Sandbox D reads Worker B            : PASS
+  Sandbox E reads Worker A            : PASS
+  primary Stage 2 remains unchanged   : PASS
+
+final result                    : PASS
+
+Terminating Sandbox E
+sandbox E termination      : requested
+
+Terminating Sandbox D
+sandbox D termination      : requested

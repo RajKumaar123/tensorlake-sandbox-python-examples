@@ -1,0 +1,20 @@
+{
+  "experiment": "02-replace-the-compute",
+  "filesystem_name": "article3-stateful-agent-workspace",
+  "mount_path": "/workspace",
+  "poll_attempts": 1,
+  "poll_elapsed_seconds": 0.27,
+  "sdk_version": "0.5.123",
+  "stage1_byte_count": 124,
+  "stage1_host_precondition_status": "PASS",
+  "stage1_path": "state/stage1.json",
+  "stage1_sha256": "d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872",
+  "sandbox_b_stage1_status": "PASS",
+  "stage2_byte_count": 187,
+  "stage2_expected_sha256": "f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601",
+  "stage2_observed_sha256": "f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601",
+  "stage2_path": "state/stage2.json",
+  "status": "PASS",
+  "terminated_sandbox_b_id": "9pbnzpnp15rcw6k30salg",
+  "terminated_sandbox_b_name": "article3-replace-compute-sandbox-b"
+}

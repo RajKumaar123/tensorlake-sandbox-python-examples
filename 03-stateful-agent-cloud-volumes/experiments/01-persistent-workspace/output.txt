@@ -1,0 +1,52 @@
+Experiment 1: Persistent Workspace
+==========================================
+tensorlake sdk          : 0.5.123
+experiment              : 01-persistent-workspace
+evidence path           : state/stage1.json
+expected sha256         : d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872
+api key                 : configured (redacted)
+
+cloud volume/filesystem : article3-stateful-agent-workspace
+filesystem lookup       : existing filesystem found
+filesystem action       : reused
+filesystem status before sandbox:
+  filesystem status type : FilesystemStatus
+  name                  : article3-stateful-agent-workspace
+
+Creating Sandbox A with writable Cloud Volume mount
+sandbox name            : article3-persistent-workspace-sandbox-a
+sandbox id              : 8vz0jtmv1rcxzfcmnu1i2
+mount path              : /workspace
+
+Writing deterministic evidence from inside Sandbox A
+sandbox write exit code : 0
+same-sandbox bytes      : 124
+same-sandbox sha256     : d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872
+same-sandbox readback   : PASS (local sanity check only)
+
+filesystem status before external polling:
+  filesystem status type : FilesystemStatus
+  name                  : article3-stateful-agent-workspace
+
+Polling host-side Filesystem.read_file() for published shared state
+external read attempt 1: elapsed=0.00s bytes=124 hash=d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872
+external read           : PASS
+external bytes          : 124
+external sha256         : d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872
+poll attempts           : 1
+poll elapsed seconds    : 0.28
+
+filesystem status after external verification:
+  filesystem status type : FilesystemStatus
+  name                  : article3-stateful-agent-workspace
+
+PASS criteria
+  sandbox write command       : PASS
+  same-sandbox readback       : PASS
+  host Filesystem.read_file   : PASS
+  SHA-256 content match       : PASS
+
+final result            : PASS
+
+Terminating Sandbox A
+sandbox termination     : requested

@@ -1,0 +1,72 @@
+Experiment 3: Version and Recover
+=========================================
+tensorlake sdk              : 0.5.123
+experiment                  : 03-version-and-recover
+primary filesystem          : article3-stateful-agent-workspace
+recovery filesystem         : article3-stateful-agent-recovered
+snapshot message            : experiment-03-known-good-before-mutation
+modified Stage 2 sha256     : 1676930860ab4e1b5cad4db2289e88c9aa8852ca17ce8a3858d10bf0bbf4cec7
+api key                     : configured (redacted)
+
+Precondition: known-good state exists before mutation
+Stage 1 bytes               : 124
+Stage 1 sha256              : d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872
+Stage 2 known-good bytes    : 187
+Stage 2 known-good sha256   : f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+precondition                : PASS
+
+Creating permanent known-good Cloud Volume snapshot
+snapshot object type        : FilesystemSnapshot
+snapshot id                 : b1cd0a588a1ab3c271ae0ea8c596b2968b07f7f463c70cd62644c2c4ccc46869
+snapshot message            : experiment-03-known-good-before-mutation
+
+Verifying snapshot appears in permanent snapshot list
+snapshot list count         : 2
+snapshot confirmed          : PASS
+
+Writing deterministic unwanted current-state modification
+write version object type   : FilesystemVersion
+write version id            : 59b0173a0e7ebee630cb0782bdb0c270dbac8216c6ca3ea02cacf094cadeeaa1
+write previous version id   : b1cd0a588a1ab3c271ae0ea8c596b2968b07f7f463c70cd62644c2c4ccc46869
+
+Verifying current head changed
+current Stage 2 bytes       : 228
+current Stage 2 sha256      : 1676930860ab4e1b5cad4db2289e88c9aa8852ca17ce8a3858d10bf0bbf4cec7
+current head changed        : PASS
+
+Reading known-good Stage 2 from permanent snapshot
+historical Stage 2 bytes    : 187
+historical Stage 2 sha256   : f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+historical read             : PASS
+
+Forking recovered filesystem from known-good snapshot
+recovered filesystem        : article3-stateful-agent-recovered
+fork-based recovery         : PASS
+
+Verifying recovered filesystem contains known-good state
+recovered Stage 1 bytes     : 124
+recovered Stage 1 sha256    : d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872
+recovered Stage 2 bytes     : 187
+recovered Stage 2 sha256    : f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+recovered filesystem check  : PASS
+
+Verifying primary remains modified and recovered remains known-good
+primary current Stage 2     : 1676930860ab4e1b5cad4db2289e88c9aa8852ca17ce8a3858d10bf0bbf4cec7
+recovered Stage 2           : f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+state separation            : PASS
+
+PASS criteria
+  Stage 1 precondition matched          : PASS
+  Stage 2 known-good precondition       : PASS
+  permanent snapshot created            : PASS
+  snapshot confirmed via list           : PASS
+  primary Stage 2 changed               : PASS
+  current head differs from known-good  : PASS
+  historical snapshot read              : PASS
+  fork from known-good snapshot         : PASS
+  recovered Stage 2 known-good          : PASS
+  recovered Stage 1 known-good          : PASS
+  primary remains modified              : PASS
+  recovered remains known-good          : PASS
+
+final result                     : PASS

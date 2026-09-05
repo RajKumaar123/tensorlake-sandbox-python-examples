@@ -1,0 +1,66 @@
+Experiment 4: Immutable Consumer
+========================================
+tensorlake sdk              : 0.5.123
+experiment                  : 04-immutable-consumer
+primary filesystem          : article3-stateful-agent-workspace
+recovered filesystem        : article3-stateful-agent-recovered
+pinned snapshot id          : b1cd0a588a1ab3c271ae0ea8c596b2968b07f7f463c70cd62644c2c4ccc46869
+sandbox C name              : article3-immutable-consumer-sandbox-c
+api key                     : configured (redacted)
+
+Host-side preconditions
+primary current Stage 2     : 1676930860ab4e1b5cad4db2289e88c9aa8852ca17ce8a3858d10bf0bbf4cec7
+snapshot list count         : 2
+snapshot present            : PASS
+snapshot Stage 2 sanity     : f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+host preconditions          : PASS
+
+Creating Sandbox C with snapshot-pinned read-only mount
+sandbox C id                : psisx7p9xbk6xt0556xri
+mount file_system_id        : article3-stateful-agent-workspace
+mount path                  : /workspace
+mount read_only             : True
+mount snapshot_id           : b1cd0a588a1ab3c271ae0ea8c596b2968b07f7f463c70cd62644c2c4ccc46869
+
+Inspecting Sandbox C mount configuration
+listed mount count          : 1
+listed mount file_system_id : article3-stateful-agent-workspace
+listed mount read_only      : True
+listed mount snapshot_id    : b1cd0a588a1ab3c271ae0ea8c596b2968b07f7f463c70cd62644c2c4ccc46869
+mount configuration         : PASS
+
+Sandbox C reads pinned known-good historical state and attempts mutation
+sandbox C exit code         : 0
+sandbox C Stage 1 bytes     : 124
+sandbox C Stage 1 sha256    : d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872
+sandbox C Stage 2 bytes     : 187
+sandbox C Stage 2 sha256    : f7a01912dc63453f1d8e4c06cf16b890f9819f38459c3670d16abacd051ff601
+Stage 2 equals current head : False
+write failed                : True
+write error type            : OSError
+write error errno           : 30
+write error is EROFS        : True
+prohibited file exists      : False
+sandbox C content check     : PASS
+read-only mutation check    : PASS
+
+Verifying current primary filesystem was not modified by Experiment 4
+primary current Stage 2     : 1676930860ab4e1b5cad4db2289e88c9aa8852ca17ce8a3858d10bf0bbf4cec7
+primary prohibited file     : absent
+no-write verification       : PASS
+
+PASS criteria
+  primary current Stage 2 modified    : PASS
+  permanent snapshot exists           : PASS
+  new Sandbox C created               : PASS
+  pinned read-only mount succeeds     : PASS
+  Sandbox C Stage 1 known-good        : PASS
+  Sandbox C Stage 2 known-good        : PASS
+  Sandbox C differs from current head : PASS
+  write through mount fails           : PASS
+  prohibited file absent              : PASS
+
+final result                    : PASS
+
+Terminating Sandbox C
+sandbox C termination      : requested

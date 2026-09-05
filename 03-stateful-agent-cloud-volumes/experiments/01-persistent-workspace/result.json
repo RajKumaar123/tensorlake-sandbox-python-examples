@@ -1,0 +1,16 @@
+{
+  "byte_count": 124,
+  "evidence_path": "state/stage1.json",
+  "expected_sha256": "d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872",
+  "experiment": "01-persistent-workspace",
+  "filesystem_action": "reused",
+  "filesystem_name": "article3-stateful-agent-workspace",
+  "mount_path": "/workspace",
+  "observed_sha256": "d557785c9e71629419e18b2e0f70eba9897dd84b9ede8979288b83929f7d3872",
+  "poll_attempts": 1,
+  "poll_elapsed_seconds": 0.282,
+  "terminated_sandbox_id": "8vz0jtmv1rcxzfcmnu1i2",
+  "terminated_sandbox_name": "article3-persistent-workspace-sandbox-a",
+  "sdk_version": "0.5.123",
+  "status": "PASS"
+}
