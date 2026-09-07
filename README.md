@@ -1,333 +1,165 @@
 # Tensorlake Sandbox Python Examples
 
-> A production-ready collection of Python examples demonstrating how to build, explore, and document Tensorlake Sandbox workflows.
+This repository contains hands-on Python examples accompanying a progressive engineering series on Tensorlake Sandboxes. The examples move from isolated workload fundamentals to dynamic network security and then to persistent, versioned workflow state with Cloud Volumes.
 
-## Overview
+Each article folder contains implementation-oriented examples and the relevant setup guidance. The examples are validated against the SDK versions documented for their respective article; they are not all pinned to one global SDK version.
 
-This repository is a practical engineering guide for learning Tensorlake Sandboxes through verified Python examples.
+## Series Overview
 
-Every example in this repository is:
+| Part | Focus | Core question | Implementation |
+| --- | --- | --- | --- |
+| 1 | Sandbox Fundamentals | How do I create and operate an isolated AI workload? | [`examples/`](examples/) |
+| 2 | Network Security | How can outbound access change without replacing the workload? | [`02-secure-agent-execution/`](02-secure-agent-execution/) |
+| 3 | Persistent State | How can compute be replaceable while workflow state survives independently? | [`03-stateful-agent-cloud-volumes/`](03-stateful-agent-cloud-volumes/) |
 
-- Executed successfully
-- Verified against actual SDK behavior
-- Documented with explanations
-- Easy to reproduce
-- Built with engineering best practices
+## 1. Sandbox Fundamentals
 
-The goal is to create a high-quality open-source resource for developers who want to understand Tensorlake Sandboxes as isolated, stateful execution environments for modern AI applications.
+### Getting Started with Tensorlake Sandboxes: Build, Run, and Manage Your First Isolated AI Workload with Python
 
-## Quick Start
+The foundation examples cover creating sandboxes, executing commands, stateful filesystem behavior, installing Python dependencies such as `pandas`, native file APIs, and Sandbox snapshot/checkpoint lifecycle.
 
-1. Clone the repository.
+- Implementation: [`examples/`](examples/)
+- Article: [Getting Started with Tensorlake Sandboxes](https://pub.towardsai.net/getting-started-with-tensorlake-sandboxes-build-run-and-manage-your-first-isolated-ai-workload-41715d797305)
 
-```bash
-git clone https://github.com/<your-username>/tensorlake-sandbox-python-examples.git
-cd tensorlake-sandbox-python-examples
+## 2. Secure Agent Execution
+
+### Secure AI Agents with Tensorlake Dynamic Network Policies
+
+Article 2 explores dynamic outbound network policies for AI agent execution.
+
+**Core principle:** Change the privilege, not the workload.
+
+The validated workflow updates a running sandbox policy without replacing the worker. Existing connections are not interrupted by the update; new outbound connections are evaluated against the updated policy.
+
+- Implementation: [`02-secure-agent-execution/`](02-secure-agent-execution/)
+- SDK validation: `tensorlake==0.5.103`
+- Article: [Secure AI Agents with Tensorlake Dynamic Network Policies](https://medium.com/towards-artificial-intelligence/secure-ai-agents-with-tensorlake-dynamic-network-policies-3149b7a11e16)
+
+## 3. Persistent Agent State
+
+### Persistent State for AI Agents with Tensorlake Cloud Volumes: Versioning, Recovery, and Sharing Across Sandboxes
+
+Article 3 separates ephemeral compute from durable workflow filesystem state.
+
+**Core principle:** Replace the compute, preserve the workflow state.
+
+The five validated experiments are:
+
+1. Persistent Workspace
+2. Replace the Compute
+3. Version and Recover
+4. Immutable Consumer
+5. Shared State Across Workers
+
+The progression is persist state, replace compute, version and recover, consume known-good state read-only, and share state across workers.
+
+- Implementation: [`03-stateful-agent-cloud-volumes/`](03-stateful-agent-cloud-volumes/)
+- SDK validation: `tensorlake==0.5.123`, Python `3.12.2`
+
+Implementation complete; all five experiments were validated successfully. The evidence supports replaceable compute, versioned historical reads, fork-based recovery, snapshot-pinned read-only consumption, and disjoint-path sharing. It does not establish instant durability, synchronous replication, transactional multi-writer behavior, conflict-free same-path writes, in-place rollback, runtime/process inheritance between sandboxes, or that Cloud Volumes are Tensorlake's only state-preservation mechanism. Experiment 5 uses separate worker-owned paths; Cloud Volumes are not a transactional database, distributed lock system, or Git conflict-resolution system, so same-path competing writes require application-level coordination.
+
+## Architecture Progression
+
+```text
+Sandbox Fundamentals
+        |
+        v
+Network-Constrained Agent Execution
+        |
+        v
+Persistent and Versioned Workflow State
 ```
 
-2. Create and activate a virtual environment.
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-3. Install the required packages.
-
-```bash
-pip install tensorlake python-dotenv
-```
-
-4. Add your Tensorlake API key to `.env`.
-
-```env
-TENSORLAKE_API_KEY=your_api_key
-```
-
-5. Run an example.
-
-```bash
-cd examples/01_create_sandbox
-python main.py
-```
+The series moves from execution isolation, to execution security, and finally to separating the compute lifecycle from the workflow-state lifecycle.
 
 ## Repository Structure
 
-```
+```text
 tensorlake-sandbox-python-examples/
-|-- README.md
-|-- .env.example
-|-- .gitignore
-|-- docs/
-|   |-- AGENTS.md
-|   |-- CHANGELOG.md
-|   |-- CONTRIBUTING.md
-|   |-- example_completion_checklist.md
-|   |-- notes.md
-|   `-- ROADMAP.md
-|-- examples/
-|   |-- 01_create_sandbox/
-|   |-- 02_run_commands/
-|   |-- 03_stateful_filesystem/
-|   |-- 04_install_packages/
-|   |-- 05_native_file_api/
-|   |-- 06_snapshots/
-|   |-- 07_suspend_resume/
-|   |-- 08_process_management/
-|   |-- 09_parallel_sandboxes/
-|   |-- 10_browser_automation/
-|   |-- 11_computer_use/
-|   `-- 12_ai_agent_demo/
-|-- experiments/
-`-- utils/
-    `-- common.py
+├── README.md
+├── examples/
+│   ├── 01_create_sandbox/
+│   ├── 02_run_commands/
+│   ├── 03_stateful_filesystem/
+│   ├── 04_install_packages/
+│   ├── 05_native_file_api/
+│   ├── 06_snapshots/
+│   ├── 07_suspend_resume/
+│   ├── 08_process_management/
+│   ├── 09_parallel_sandboxes/
+│   ├── 10_browser_automation/
+│   ├── 11_computer_use/
+│   └── 12_ai_agent_demo/
+├── 02-secure-agent-execution/
+│   ├── README.md
+│   └── experiments/
+└── 03-stateful-agent-cloud-volumes/
+    ├── README.md
+    └── experiments/
+        ├── 01-persistent-workspace/
+        │   ├── main.py
+        │   ├── output.txt
+        │   └── result.json
+        ├── 02-replace-the-compute/
+        │   ├── main.py
+        │   ├── output.txt
+        │   └── result.json
+        ├── 03-version-and-recover/
+        │   ├── main.py
+        │   ├── output.txt
+        │   └── result.json
+        ├── 04-immutable-consumer/
+        │   ├── main.py
+        │   ├── output.txt
+        │   └── result.json
+        └── 05-shared-state-across-workers/
+            ├── main.py
+            ├── output.txt
+            └── result.json
 ```
 
-## Learning Roadmap
+## Reproducibility and SDK Versions
 
-The repository follows a progressive learning path, starting with the fundamentals and gradually moving toward advanced AI agent workflows.
+Examples were validated at different points against the SDK versions associated with their article implementation:
 
-### Phase 1 - Fundamentals
+- Article 2: `tensorlake==0.5.103`
+- Article 3: `tensorlake==0.5.123`, Python `3.12.2`
 
-- Environment Setup
-- Creating a Sandbox
-- Running Commands
-- Understanding the Sandbox Lifecycle
-- Stateful Filesystem
+Article 1 may reflect its historical environment. Read the relevant project README and source before running an example; do not assume that one SDK version applies to the entire repository.
 
-### Phase 2 - Working with Sandboxes
+## Getting Started
 
-- Installing Packages
-- Native File Operations
-- Uploading Files
-- Reading Files
-- Managing Directories
+1. Clone the repository.
+2. Choose an article or example folder.
+3. Read its README and setup instructions.
+4. Create an isolated virtual environment appropriate for that implementation.
+5. Configure `TENSORLAKE_API_KEY` through environment configuration without committing the value.
+6. Run the relevant example or experiment.
 
-### Phase 3 - Advanced Sandbox Features
+Use a safe placeholder when configuring credentials:
 
-- Snapshots
-- Checkpoints
-- Suspend & Resume
-- Process Management
-- Long-running Applications
-
-### Phase 4 - AI Workloads
-
-- Parallel Sandboxes
-- Browser Automation
-- Computer Use
-- AI Agents
-- Multi-Agent Systems
-
-### Phase 5 - Production Patterns
-
-- Secure Code Execution
-- Background Workers
-- Stateful Agents
-- Deployment Patterns
-- Best Practices
-
-## Example Index
-
-| Example | Description | Status |
-|----------|-------------|--------|
-| 01 | Create Your First Sandbox | Completed |
-| 02 | Execute Commands | Completed |
-| 03 | Stateful Filesystem | Completed |
-| 04 | Installing Python Packages | Completed |
-| 05 | Native File APIs | Completed |
-| 06 | Snapshots & Checkpoints | Completed |
-| 07 | Suspend & Resume | Completed |
-| 08 | Process Management | Completed |
-| 09 | Parallel Sandboxes | Completed |
-| 10 | Browser Automation | Completed |
-| 11 | Computer Use | Completed |
-| 12 | AI Agent Demo | Completed |
-
-## Running Examples
-
-Each example is independent.
-
-Navigate to the example folder:
-
-```bash
-cd examples/01_create_sandbox
+```text
+TENSORLAKE_API_KEY=your_tensorlake_api_key
 ```
 
-Run the example:
+Individual projects may use different SDK versions. Follow their documented setup rather than upgrading the repository globally.
 
-```bash
-python main.py
-```
+## Evidence and Reproducibility
 
-Each example folder contains:
+The repository favors executable examples and captured evidence over architecture claims alone. Article 3 preserves `output.txt` and `result.json` for each validated experiment. Other projects may use different evidence-file structures.
 
-```
-Example Folder/
-|-- main.py
-|-- README.md
-|-- output.txt
-`-- images/
-```
+## Important Notes
 
-- `main.py` - Working source code.
-- `README.md` - Explanation of the example.
-- `output.txt` - Actual terminal output.
-- `images/` - Screenshots and diagrams, where applicable.
+- Tensorlake APIs can evolve; examples reflect the versions against which they were validated.
+- Running examples may create or mutate Tensorlake cloud resources.
+- Review resource lifecycle and cleanup requirements in the relevant project README before execution.
+- Permanent snapshots may remain until explicitly deleted and should be managed intentionally.
+- Never commit API keys or other credentials.
 
-## Documentation
+A Sandbox Snapshot preserves or recreates execution-environment state. A Cloud Volume provides workflow filesystem state that can be reused across execution environments. Neither mechanism is universally better; they address different lifecycle needs.
 
-This repository contains supporting documents to make learning and contributing easier.
+## Articles
 
-| Document | Description |
-|----------|-------------|
-| `README.md` | Project overview and getting started guide |
-| `docs/AGENTS.md` | Instructions for AI coding assistants |
-| `docs/ROADMAP.md` | Project roadmap and progress tracking |
-| `docs/notes.md` | Engineering notebook documenting experiments and discoveries |
-| `docs/CONTRIBUTING.md` | Contribution guidelines |
-| `docs/CHANGELOG.md` | Project release history |
-| `docs/example_completion_checklist.md` | Completion checklist used for example reviews |
-
-## Engineering Standards
-
-Every example in this repository follows a common set of engineering standards.
-
-### Code Quality
-
-- Production-quality Python code
-- Meaningful variable names
-- Modular design
-- Comprehensive comments
-- Clear docstrings
-- Consistent formatting
-- PEP 8 compliant
-
-### Verification
-
-Every example must be:
-
-- Executed successfully
-- Verified against actual SDK behavior
-- Compared with official documentation
-- Documented with expected output
-
-Nothing is added based on assumptions.
-
-### Error Handling
-
-Examples should gracefully handle:
-
-- Missing API keys
-- Authentication failures
-- Invalid commands
-- Network issues
-- Timeouts
-- Unexpected SDK exceptions
-
-Errors are treated as learning opportunities and documented whenever they reveal useful SDK behavior.
-
-### Documentation
-
-Each example includes:
-
-- Objective
-- Prerequisites
-- Source code
-- Execution steps
-- Expected output
-- Explanation
-- Lessons learned
-- References, where applicable
-
-## AI Assistant Support
-
-This repository is designed to work well with AI coding assistants, including:
-
-- GitHub Copilot
-- OpenAI Codex
-- Claude Code
-- Cursor
-
-The `docs/AGENTS.md` file contains project-specific instructions that help AI assistants:
-
-- Understand the repository structure
-- Continue experiments without repeating work
-- Follow project conventions
-- Verify APIs before using them
-- Update documentation as the project evolves
-
-## Planned Medium Article Series
-
-This repository will support a technical article series covering topics such as:
-
-1. Building Your First Tensorlake Sandbox
-2. Running Python Inside Tensorlake Sandboxes
-3. Understanding Stateful Execution
-4. Installing Packages and Managing Dependencies
-5. Working with Native File APIs
-6. Snapshots, Checkpoints, and Recovery
-7. Suspend and Resume Workflows
-8. Long-Running AI Applications
-9. Parallel Sandbox Architectures
-10. Browser Automation with Tensorlake
-11. Building Stateful AI Agents
-12. Production AI Execution Patterns
-
-Each article will reference the corresponding example folder from this repository.
-
-## Contributing
-
-Contributions are welcome.
-
-If you discover:
-
-- SDK improvements
-- Better engineering practices
-- Bugs
-- Documentation improvements
-- Additional use cases
-
-please feel free to open an issue or submit a pull request.
-
-Please read `docs/CONTRIBUTING.md` before contributing.
-
-## Acknowledgements
-
-Special thanks to the Tensorlake Engineering Team for providing access to the platform and continuously improving the developer experience.
-
-This repository is based entirely on hands-on experimentation and aims to help the AI engineering community learn Tensorlake through practical, reproducible examples.
-
-## Author
-
-### Raj Kumar
-
-Engineering Manager | AI/ML Engineer | Generative AI Practitioner
-
-Passionate about building practical AI systems, creating educational content, and sharing engineering knowledge with the developer community.
-
-## Connect
-
-- GitHub
-- Medium
-- LinkedIn
-
-## Support the Project
-
-If you find this repository useful:
-
-- Star the repository
-- Fork the repository
-- Share it with others
-- Provide feedback
-- Follow the accompanying Medium article series
-
-## Final Thoughts
-
-The goal of this repository is not simply to demonstrate APIs.
-
-It is to document a real engineering journey, one experiment at a time.
-
-By combining verified examples, engineering notes, and practical articles, this project aims to become a valuable learning resource for developers building modern AI applications with Tensorlake Sandboxes.
-
-Happy Learning!
+- [Getting Started with Tensorlake Sandboxes: Build, Run, and Manage Your First Isolated AI Workload with Python](https://pub.towardsai.net/getting-started-with-tensorlake-sandboxes-build-run-and-manage-your-first-isolated-ai-workload-41715d797305)
+- [Secure AI Agents with Tensorlake Dynamic Network Policies](https://medium.com/towards-artificial-intelligence/secure-ai-agents-with-tensorlake-dynamic-network-policies-3149b7a11e16)
+- Persistent State for AI Agents with Tensorlake Cloud Volumes: Versioning, Recovery, and Sharing Across Sandboxes
